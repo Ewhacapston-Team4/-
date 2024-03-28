@@ -3,9 +3,9 @@ import { useState } from "react";
 
 import Colors from "../constants/Colors";
 
-function PillItem({ pillName, imageUrl, summary }) {
+function PillItem({ pillName, imageUrl, summary, style }) {
   return (
-    <View style={styles.pillItem}>
+    <View style={[styles.pillItem, style]}>
       <Pressable style={styles.button}>
         <View style={styles.innerContainer}>
           <Image source={{ uri: imageUrl }} style={styles.image} />

@@ -2,9 +2,9 @@ import { View, StyleSheet, Text } from "react-native";
 
 import Title from "./Title";
 
-function Box({ title, children }) {
+function Box({ title, children, style }) {
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, style]}>
       <Title>{title}</Title>
       {children}
     </View>
