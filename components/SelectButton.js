@@ -3,10 +3,10 @@ import { StyleSheet, View, Text, Image, Pressable } from "react-native";
 import Box from "../ui/Box";
 import Colors from "../constants/Colors";
 
-function SelectButton({ title, imageUrl, children }) {
+function SelectButton({ title, imageUrl, children, onPress }) {
   return (
     <View style={styles.rootContainer}>
-      <Pressable style={styles.button}>
+      <Pressable style={styles.button} onPress={onPress}>
         <Image
           source={require("../assets/images/image1.png")}
           style={styles.image}

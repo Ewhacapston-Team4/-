@@ -13,9 +13,25 @@ import Add from "./screens/Add";
 import Search from "./screens/Search";
 import MyPage from "./screens/MyPage";
 import Schedule from "./screens/Schedule";
+import SearchPhoto from "./screens/SearchPhoto";
+import SearchName from "./screens/SearchName";
 
 const Stack = createNativeStackNavigator();
 const BottomTab = createBottomTabNavigator();
+
+function StackNavigator() {
+  return (
+    <Stack.Navigator
+      screenOptions={{
+        headerShown: false,
+      }}
+    >
+      <Stack.Screen name="SearchScreen" component={Search} />
+      <Stack.Screen name="SearchPhoto" component={SearchPhoto} />
+      <Stack.Screen name="SearchName" component={SearchName} />
+    </Stack.Navigator>
+  );
+}
 
 export default function App() {
   const [fontsLoaded] = useFonts({
@@ -72,7 +88,7 @@ export default function App() {
           />
           <BottomTab.Screen
             name="Search"
-            component={Search}
+            component={StackNavigator}
             options={{
               tabBarLabel: "검색",
               tabBarIcon: ({ color, size }) => (
