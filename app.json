@@ -25,11 +25,14 @@
       "favicon": "./assets/favicon.png"
     },
     "plugins": [
-      "expo-image-picker",
-      {
-        "photosPermission": "The app accesses your photos to let you share them with your friends."
-      },
-      "expo-font"
+      [
+        "expo-image-picker",
+        {
+          "photosPermission": "갤러리 뒤져도 괜찮을까요?",
+          "cameraPermission": "사진 찍어도 괜찮을까요?"
+        }
+      ],
+      ["expo-font"]
     ]
   }
 }
