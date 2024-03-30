@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { StatusBar } from "expo-status-bar";
 import { StyleSheet, Text, View } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
@@ -15,11 +16,14 @@ import MyPage from "./screens/MyPage";
 import Schedule from "./screens/Schedule";
 import SearchPhoto from "./screens/SearchPhoto";
 import SearchName from "./screens/SearchName";
+import AddPhoto from "./screens/AddPhoto";
+import AddName from "./screens/AddName";
+import ImagePreview from "./components/camera/ImagePreview";
 
 const Stack = createNativeStackNavigator();
 const BottomTab = createBottomTabNavigator();
 
-function StackNavigator() {
+function StackNavigator1() {
   return (
     <Stack.Navigator
       screenOptions={{
@@ -29,6 +33,31 @@ function StackNavigator() {
       <Stack.Screen name="SearchScreen" component={Search} />
       <Stack.Screen name="SearchPhoto" component={SearchPhoto} />
       <Stack.Screen name="SearchName" component={SearchName} />
+    </Stack.Navigator>
+  );
+}
+function StackNavigator3() {
+  return (
+    <Stack.Navigator
+      screenOptions={{
+        headerShown: false,
+      }}
+    >
+      <Stack.Screen name="AddPhoto" component={AddPhoto} />
+      <Stack.Screen name="ImagePreview" component={ImagePreview} />
+    </Stack.Navigator>
+  );
+}
+function StackNavigator2() {
+  return (
+    <Stack.Navigator
+      screenOptions={{
+        headerShown: false,
+      }}
+    >
+      <Stack.Screen name="AddScreen" component={Add} />
+      <Stack.Screen name="AddPhoto" component={StackNavigator3} />
+      <Stack.Screen name="AddName" component={AddName} />
     </Stack.Navigator>
   );
 }
@@ -88,7 +117,7 @@ export default function App() {
           />
           <BottomTab.Screen
             name="Search"
-            component={StackNavigator}
+            component={StackNavigator1}
             options={{
               tabBarLabel: "검색",
               tabBarIcon: ({ color, size }) => (
@@ -98,7 +127,7 @@ export default function App() {
           />
           <BottomTab.Screen
             name="Add"
-            component={Add}
+            component={StackNavigator2}
             options={{
               tabBarLabel: "",
               tabBarIcon: ({ color, size }) => (
