@@ -8,6 +8,10 @@ import ImagePicker from "../components/camera/ImagePicker";
 function AddPhoto({ navigation }) {
   const [pickedImage, setPickedImage] = useState(null);
 
+  //function onImagePicked(imageUrl) {
+  //setPickedImage(imageUrl);
+  // }
+
   useEffect(() => {
     if (pickedImage) {
       navigation.navigate("ImagePreview", { imageUrl: pickedImage }, [
