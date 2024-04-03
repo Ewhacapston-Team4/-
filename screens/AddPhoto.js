@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { View, StyleSheet, Button } from "react-native";
+import { View, StyleSheet, Text } from "react-native";
 
 import Title1 from "../ui/Title1";
 import Colors from "../constants/Colors";
@@ -14,12 +14,11 @@ function AddPhoto({ navigation }) {
 
   useEffect(() => {
     if (pickedImage) {
-      navigation.navigate("ImagePreview", { imageUrl: pickedImage }, [
-        pickedImage,
-        navigation,
-      ]);
+      console.log(pickedImage);
+      // navigation.navigate 함수에서 매개변수 전달을 객체 형태로 수정
+      navigation.navigate("ImagePreview", { imageUrl: pickedImage });
     }
-  });
+  }, [pickedImage, navigation]);
   return (
     <View style={styles.container}>
       <Title1>찍어서 찾기</Title1>

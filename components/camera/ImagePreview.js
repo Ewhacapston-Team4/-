@@ -1,90 +1,97 @@
-import { View, StyleSheet, Image } from "react-native";
-
-import axios from "axios";
+import { View, StyleSheet, Image, Text } from "react-native";
+import { useEffect } from "react";
 
 import Colors from "../../constants/Colors";
 
 //API 호출
+// const FormData = require('form-data')
+// const axios = require('axios')
 
-function requestWithBase64() {
-  axios
-    .post(
-      "", // APIGW Invoke URL
-      {
-        images: [
-          {
-            format: "", // file format
-            name: "", // image name
-            data: "", // image base64 string(only need part of data). Example: base64String.split(',')[1]
-          },
-        ],
-        requestId: "", // unique string
-        timestamp: 0,
-        version: "V2",
-      },
-      {
-        headers: {
-          "X-OCR-SECRET": "", // Secret Key
-        },
-      }
-    )
-    .then((res) => {
-      if (res.status === 200) {
-        console.log("requestWithBase64 response:", res.data);
-      }
-    })
-    .catch((e) => {
-      console.warn("requestWithBase64 error", e.response);
-    });
-}
+// function requestWithBase64 () {
+//   axios
+//     .post(
+//       '', // APIGW Invoke URL
+//       {
+//         images: [
+//           {
+//             format: '', // file format
+//             name: '', // image name
+//             data: '' // image base64 string(only need part of data). Example: base64String.split(',')[1]
+//           }
+//         ],
+//         requestId: '', // unique string
+//         timestamp: 0,
+//         version: 'V2'
+//       },
+//       {
+//         headers: {
+//           'X-OCR-SECRET': '' // Secret Key
+//         }
+//       }
+//     )
+//     .then(res => {
+//       if (res.status === 200) {
+//         console.log('requestWithBase64 response:', res.data)
+//       }
+//     })
+//     .catch(e => {
+//       console.warn('requestWithBase64 error', e.response)
+//     })
+// }
 
-function requestWithFile(imageUrl) {
-  const formData = new FormData();
-  const file = imageUrl; // image file object. Example: fs.createReadStream('./example.png')
-  const message = {
-    images: [
-      {
-        format: "jpeg", // file format
-        name: "test", // file name
-      },
-    ],
-    requestId: "string", // unique string
-    timestamp: 0,
-    version: "V2",
-  };
+// function requestWithFile () {
+//   const file = '' // image file object. Example: fs.createReadStream('./example.png')
+//   const message = {
+//     images: [
+//       {
+//         format: '', // file format
+//         name: '' // file name
+//       }
+//     ],
+//     requestId: '', // unique string
+//     timestamp: 0,
+//     version: 'V2'
+//   }
+//   const formData = new FormData()
 
-  formData.append("file", file);
-  formData.append("message", JSON.stringify(message));
+//   formData.append('file', file)
+//   formData.append('message', JSON.stringify(message))
 
-  console.log(formData);
+//   axios
+//     .post(
+//       '', // APIGW Invoke URL
+//       formData,
+//       {
+//         headers: {
+//           'X-OCR-SECRET': '', // Secret Key
+//           ...formData.getHeaders()
+//         }
+//       }
+//     )
+//     .then(res => {
+//       if (res.status === 200) {
+//         console.log('requestWithFile response:', res.data)
+//       }
+//     })
+//     .catch(e => {
+//       console.warn('requestWithFile error', e.response)
+//     })
+// }
 
-  axios
-    .post(
-      "https://4s376tsj0w.apigw.ntruss.com/custom/v1/29314/86a1154edeb470c6b86ef567a6534e7e753f2398af6355e9c99e35dd34a51f6e/infer", // APIGW Invoke URL
-      formData,
-      {
-        headers: {
-          "X-OCR-SECRET": "aGNhdFB2VGFkd2pIZEpJaWVRZnFOZEJYcGNxVmd6Ymc=", // Secret Key
-          "Content-Type": "multipart/form-data",
-        },
-      }
-    )
-    .then((res) => {
-      if (res.status === 200) {
-        console.log("requestWithFile response:", res.data);
-      }
-    })
-    .catch((e) => {
-      console.warn("requestWithFile error", e.response);
-    });
-}
-
-function ImagePreview({ imageUrl }) {
-  requestWithFile("../../assets/images/sampleImage.jpg");
+function ImagePreview({ route }) {
+  // useEffect(() => {
+  //   requestWithBase64();
+  // }, [imageUrl]);
+  const { imageUrl } = route.params;
+  console.log(imageUrl);
   return (
     <View style={styles.container}>
       <View style={styles.imageContainer}>
-        <Image style={styles.image} source={{ uri: imageUrl }} />
+        {imageUrl ? (
+          <Image style={styles.image} source={{ uri: imageUrl }} />
+        ) : (
+          <Text>No image available</Text>
+        )}
       </View>
     </View>
   );
