@@ -23,5 +23,9 @@ const styles = StyleSheet.create({
     paddingVertical: 30,
     elevation: 4,
     marginVertical: 5,
+    shadowColor: "#000000",
+    shadowOffset: { width: 0, height: 0 },
+    shadowOpacity: 0.2,
+    shadowRadius: 3,
   },
 });

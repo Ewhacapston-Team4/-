@@ -1,12 +1,12 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { StatusBar } from "expo-status-bar";
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text, View, Platform } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { Ionicons } from "@expo/vector-icons";
 import { useFonts } from "expo-font";
-import AppLoading from "expo-app-loading";
+import * as SplashScreen from "expo-splash-screen";
 
 import Colors from "./constants/Colors";
 import Home from "./screens/Home";
@@ -19,6 +19,8 @@ import SearchName from "./screens/SearchName";
 import AddPhoto from "./screens/AddPhoto";
 import AddName from "./screens/AddName";
 import ImagePreview from "./components/camera/ImagePreview";
+
+SplashScreen.preventAutoHideAsync();
 
 const Stack = createNativeStackNavigator();
 const BottomTab = createBottomTabNavigator();
@@ -43,7 +45,7 @@ function StackNavigator3() {
         headerShown: false,
       }}
     >
-      <Stack.Screen name="AddPhoto" component={AddPhoto} />
+      <Stack.Screen name="main" component={AddPhoto} />
       <Stack.Screen name="ImagePreview" component={ImagePreview} />
     </Stack.Navigator>
   );
@@ -75,9 +77,20 @@ export default function App() {
     "noto-sans-bold": require("./assets/fonts/NotoSansKR-Bold.otf"),
     "noto-sans-black": require("./assets/fonts/NotoSansKR-Black.otf"),
   });
+  useEffect(() => {
+    async function hideSplash() {
+      if (fontsLoaded) {
+        await SplashScreen.hideAsync();
+      }
+    }
+
+    hideSplash();
+  }, [fontsLoaded]);
+
   if (!fontsLoaded) {
-    return <AppLoading />;
+    return null; // 폰트가 로딩되는 동안은 내용을 표시하지 않음
   }
+
   return (
     <>
       <StatusBar style="dark" />
@@ -89,12 +102,24 @@ export default function App() {
             tabBarActiveTintColor: Colors.main,
             tabBarInactiveTintColor: Colors.grey4,
             tabBarStyle: {
-              backgroundColor: "#ffffff",
-              height: "12%",
-              justifyContent: "center",
-              paddingVertical: 14,
-              paddingHorizontal: 8,
-              paddingBottom: 8,
+              ...Platform.select({
+                ios: {
+                  backgroundColor: "#ffffff",
+                  height: "12%",
+                  justifyContent: "center",
+                  paddingTop: 10,
+                  paddingHorizontal: 8,
+                  paddingBottom: 23,
+                },
+                android: {
+                  backgroundColor: "#ffffff",
+                  height: "12%",
+                  justifyContent: "center",
+                  paddingVertical: 14,
+                  paddingHorizontal: 8,
+                  paddingBottom: 8,
+                },
+              }),
             },
             tabBarLabelStyle: {
               fontSize: 15,

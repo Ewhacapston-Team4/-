@@ -28,6 +28,10 @@ const styles = StyleSheet.create({
     width: "100%",
     height: "43%",
     elevation: 4,
+    shadowColor: "#000000",
+    shadowOffset: { width: 0, height: 0 },
+    shadowOpacity: 0.2,
+    shadowRadius: 3,
     marginVertical: 5,
     position: "relative",
     paddingTop: 15, // 이 컨테이너를 기준으로 자식 요소들을 절대 위치시킴
