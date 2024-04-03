@@ -5,40 +5,34 @@ import Colors from "../constants/Colors";
 
 function PillItem({ pillName, imageUrl, summary, style }) {
   return (
-    <View style={[styles.pillItem, style]}>
-      <Pressable style={styles.button}>
-        <View style={styles.innerContainer}>
-          <Image source={{ uri: imageUrl }} style={styles.image} />
-          <Text style={styles.text}>{pillName}</Text>
-        </View>
-      </Pressable>
-    </View>
+    <Pressable style={styles.button}>
+      <Image source={{ uri: imageUrl }} style={styles.image} />
+      <Text style={styles.text}>{pillName}</Text>
+    </Pressable>
   );
 }
 
 export default PillItem;
 
 const styles = StyleSheet.create({
-  pillItem: {
-    flex: 1,
+  button: {
+    justifyContent: "center",
     height: 100,
     margin: 2,
     borderRadius: 8,
     backgroundColor: Colors.grey3,
-  },
-  button: { flex: 1 },
-  innerContainer: {
-    flex: 1,
-    paddingTop: 12,
-    justifyContent: "center",
+    width: "32%",
+    padding: 3,
+    paddingHorizontal: 8,
     alignItems: "center",
-  },
-  text: {
-    fontFamily: "noto-sans-bold",
-    fontSize: 15,
+    overflow: "hidden",
   },
   image: {
-    flex: 1,
-    width: 70,
+    flex: 0.7,
+    height: "100%",
+    width: "100%",
+    resizeMode: "contain",
+    maxHeight: 60,
   },
+  text: { flex: 0.3, fontFamily: "noto-sans-bold", fontSize: 15 },
 });
