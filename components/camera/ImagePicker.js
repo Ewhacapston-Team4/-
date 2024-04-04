@@ -2,12 +2,17 @@ import { Button, View, StyleSheet, Alert } from "react-native";
 import {
   launchCameraAsync,
   useCameraPermissions,
+  useMediaLibraryPermissions,
+  launchImageLibraryAsync,
   PermissionStatus,
+  requestMediaLibraryPermissionsAsync,
 } from "expo-image-picker";
 import { useState, useEffect } from "react";
 
 function ImagePicker({ onImagePicked }) {
   const [pickedImage, setPickedImage] = useState();
+  const [galleryPersmissionInformation, galleryRequestPermission] =
+    useMediaLibraryPermissions();
   const [cameraPersmissionInformation, requestPermission] =
     useCameraPermissions();
 
@@ -33,14 +38,23 @@ function ImagePicker({ onImagePicked }) {
     return true;
   }
 
-  async function takeImageHandler() {
-    const hasPermssion = await verifyPermissions();
+  async function takeImageHandler(mode) {
+    let image = {};
+    if (mode === "gallery") {
+      await requestMediaLibraryPermissionsAsync();
+      image = await launchImageLibraryAsync({
+        aspect: [16, 9],
+        quality: 1,
+      });
+    } else {
+      const hasPermssion = await verifyPermissions();
 
-    if (!hasPermssion) {
-      return;
+      if (!hasPermssion) {
+        return;
+      }
+      image = await launchCameraAsync({ aspect: [16, 21], quality: 1 });
     }
 
-    const image = await launchCameraAsync({ aspect: [16, 21], quality: 1 });
     console.log(image.assets[0].uri);
     setPickedImage(image.assets[0].uri);
     onImagePicked(image.assets[0].uri);
@@ -49,7 +63,10 @@ function ImagePicker({ onImagePicked }) {
   return (
     <View>
       <Button title="사진 찍기" onPress={takeImageHandler} />
-      <Button title="갤러리에서 고르기" />
+      <Button
+        title="갤러리에서 고르기"
+        onPress={() => takeImageHandler("gallery")}
+      />
     </View>
   );
 }
