@@ -18,6 +18,7 @@ import SearchPhoto from "./screens/SearchPhoto";
 import SearchName from "./screens/SearchName";
 import AddPhoto from "./screens/AddPhoto";
 import AddName from "./screens/AddName";
+import AddResult from "./screens/AddResult";
 import ImagePreview from "./components/camera/ImagePreview";
 
 SplashScreen.preventAutoHideAsync();
@@ -47,6 +48,7 @@ function StackNavigator3() {
     >
       <Stack.Screen name="main" component={AddPhoto} />
       <Stack.Screen name="ImagePreview" component={ImagePreview} />
+      <Stack.Screen name="AddResult" component={AddResult} />
     </Stack.Navigator>
   );
 }
@@ -172,7 +174,7 @@ export default function App() {
           />
           <BottomTab.Screen
             name="MyPage"
-            component={MyPage}
+            component={AddResult}
             options={{
               tabBarLabel: "마이페이지",
               tabBarIcon: ({ color, size }) => (

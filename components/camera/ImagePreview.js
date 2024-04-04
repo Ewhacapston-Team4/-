@@ -1,54 +1,61 @@
-import { View, StyleSheet, Image, Text } from "react-native";
+import { View, StyleSheet, Image, Text, Button } from "react-native";
 import { useEffect } from "react";
 import axios from "axios";
 import uuid from "react-native-uuid";
+import { NavigationContainer } from "@react-navigation/native";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import * as FileSystem from "expo-file-system";
 
 import Colors from "../../constants/Colors";
+import AddResult from "../../screens/AddResult";
 
 //API 호출
 
-function requestWithBase64() {
+function requestWithBase64(imageUrl) {
   axios
     .post(
       "", // APIGW Invoke URL
       {
         images: [
           {
-            format: "", // file format
-            name: "", // image name
-            data: "", // image base64 string(only need part of data). Example: base64String.split(',')[1]
+            format: "jpeg", // file format
+            name: "test.jpeg", // image name
+            data: imageUrl, // image base64 string(only need part of data). Example: base64String.split(',')[1]
           },
         ],
-        requestId: "", // unique string
+        requestId: uuid.v4(), // unique string
         timestamp: 0,
         version: "V2",
       },
       {
         headers: {
-          "X-OCR-SECRET": "", // Secret Key
+          "X-OCR-SECRET": "cld6ZEFqSG9PaUVsbW51bGpwd3lEYnJwcnZqUHNIVms=", // Secret Key
         },
       }
     )
     .then((res) => {
       if (res.status === 200) {
-        console.log("requestWithBase64 response:", res.data);
+        console.log(
+          "requestWithBase64 response:",
+          res.data.images[0].fields[0]
+        );
       }
     })
     .catch((e) => {
-      console.warn("requestWithBase64 error", e.response);
+      console.warn("requestWithBase64 error", e.message);
     });
 }
 
-function requestWithFile() {
+function requestWithFile(imageUrl) {
   // image file object. Example: fs.createReadStream('./example.png')
   //const file = "../../assets/images/sampleImage.jpg"; //local relative
   //const file = "/Users/danahshin/Desktop/cap/ChemiKim/assets/images/sampleImage.jpg"; //local ultimate
-  const file = RNFS.readFile("../../assets/images/sampleImage.jpg"); //web url
+  const file = imageUrl; //web url
   const message = {
     images: [
       {
-        format: "png", // file format
-        name: "test.png", // file name
+        format: "jpg", // file format
+        name: "test.jpg", // file name
       },
     ],
     requestId: uuid.v4(), // unique string
@@ -62,11 +69,11 @@ function requestWithFile() {
 
   axios
     .post(
-      "https://4s376tsj0w.apigw.ntruss.com/custom/v1/29314/86a1154edeb470c6b86ef567a6534e7e7539c99e35dd34a51f6e/infer", // APIGW Invoke URL
+      "", // APIGW Invoke URL
       formData,
       {
         headers: {
-          "X-OCR-SECRET": "aGN", // Secret Key
+          "X-OCR-SECRET": "bVV6aFBDdUVkd3pYdGRwcEtBWkFER3ZESWVCaFVkSnI=", // Secret Key
         },
       }
     )
@@ -81,11 +88,27 @@ function requestWithFile() {
     });
 }
 
-function ImagePreview({ route }) {
-  // useEffect(() => {
-  //   requestWithFile();
-  // }, [imageUrl]);
+function ImagePreview({ route, navigation }) {
+  useEffect(() => {
+    const ocrAPICall = async () => {
+      try {
+        const base64Img = await FileSystem.readAsStringAsync(imageUrl, {
+          encoding: FileSystem.EncodingType.Base64,
+        });
+        //requestWithFile(imageUrl);
+        //requestWithBase64(base64Img);
+        //console.log(base64Img);
+      } catch (error) {
+        console.error("Error reading image file:", error);
+      }
+    };
+
+    ocrAPICall();
+    //requestWithFile();
+  }, [imageUrl]);
   const { imageUrl } = route.params;
+
+  //imageUrl to base64
   return (
     <View style={styles.container}>
       <View style={styles.imageContainer}>
@@ -95,6 +118,10 @@ function ImagePreview({ route }) {
           <Text>No image available</Text>
         )}
       </View>
+      <Button
+        title={"확인"}
+        onPress={navigation.navigate("AddResult")}
+      ></Button>
     </View>
   );
 }
