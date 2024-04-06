@@ -8,9 +8,9 @@ import ImagePicker from "../components/camera/ImagePicker";
 function AddPhoto({ navigation }) {
   const [pickedImage, setPickedImage] = useState(null);
 
-  //function onImagePicked(imageUrl) {
-  //setPickedImage(imageUrl);
-  // }
+  function onImagePicked(imageUrl) {
+    setPickedImage(imageUrl);
+  }
 
   useEffect(() => {
     if (pickedImage) {
@@ -22,7 +22,7 @@ function AddPhoto({ navigation }) {
   return (
     <View style={styles.container}>
       <Title1>찍어서 찾기</Title1>
-      <ImagePicker onImagePicked={setPickedImage} />
+      <ImagePicker onImagePicked={onImagePicked} />
     </View>
   );
 }

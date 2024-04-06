@@ -11,6 +11,175 @@ import AddResult from "../../screens/AddResult";
 
 //API 호출
 
+//res.data.image[0]
+
+let result = [
+  {
+    boundingPoly: { vertices: [Array] },
+    inferConfidence: 0.9997,
+    inferText: "2024-03-15",
+    name: "date",
+    subFields: [[Object], [Object]],
+    type: "NORMAL",
+    valueType: "ALL",
+  },
+  {
+    boundingPoly: { vertices: [Array] },
+    inferConfidence: 0.9996,
+    inferText: "피디정2mg",
+    name: "med 01",
+    subFields: [[Object]],
+    type: "NORMAL",
+    valueType: "ALL",
+  },
+  {
+    boundingPoly: { vertices: [Array] },
+    inferConfidence: 0.9999,
+    inferText: "알레락정5mg",
+    name: "med 02",
+    subFields: [[Object]],
+    type: "NORMAL",
+    valueType: "ALL",
+  },
+  {
+    boundingPoly: { vertices: [Array] },
+    inferConfidence: 0.9991,
+    inferText: "가스모틴정5mg",
+    name: "med 03",
+    subFields: [[Object]],
+    type: "NORMAL",
+    valueType: "ALL",
+  },
+  {
+    boundingPoly: { vertices: [Array] },
+    inferConfidence: 0.9715,
+    inferText: "1정씩2회4일분",
+    name: "info 01",
+    subFields: [[Object]],
+    type: "NORMAL",
+    valueType: "ALL",
+  },
+  {
+    boundingPoly: { vertices: [Array] },
+    inferConfidence: 0.9535,
+    inferText: "1정씩2회4일분",
+    name: "info 02",
+    subFields: [[Object]],
+    type: "NORMAL",
+    valueType: "ALL",
+  },
+  {
+    boundingPoly: { vertices: [Array] },
+    inferConfidence: 0.9538,
+    inferText: "1정씩2회4일분",
+    name: "info 03",
+    subFields: [[Object]],
+    type: "NORMAL",
+    valueType: "ALL",
+  },
+  {
+    boundingPoly: { vertices: [Array] },
+    inferConfidence: 0.9986,
+    inferText: "삼아리도멕스크림",
+    name: "med 04",
+    subFields: [[Object]],
+    type: "NORMAL",
+    valueType: "ALL",
+  },
+  {
+    boundingPoly: { vertices: [Array] },
+    inferConfidence: 0,
+    inferText: "",
+    name: "med 05",
+    type: "NORMAL",
+    valueType: "ALL",
+  },
+  {
+    boundingPoly: { vertices: [Array] },
+    inferConfidence: 0,
+    inferText: "",
+    name: "med 06",
+    type: "NORMAL",
+    valueType: "ALL",
+  },
+  {
+    boundingPoly: { vertices: [Array] },
+    inferConfidence: 0,
+    inferText: "",
+    name: "med 07",
+    type: "NORMAL",
+    valueType: "ALL",
+  },
+  {
+    boundingPoly: { vertices: [Array] },
+    inferConfidence: 0,
+    inferText: "",
+    name: "med 08",
+    type: "NORMAL",
+    valueType: "ALL",
+  },
+  {
+    boundingPoly: { vertices: [Array] },
+    inferConfidence: 0.9999333,
+    inferText: "의사 지시대로 사용",
+    name: "info 04",
+    subFields: [[Object], [Object], [Object]],
+    type: "NORMAL",
+    valueType: "ALL",
+  },
+  {
+    boundingPoly: { vertices: [Array] },
+    inferConfidence: 0,
+    inferText: "",
+    name: "info 05",
+    type: "NORMAL",
+    valueType: "ALL",
+  },
+  {
+    boundingPoly: { vertices: [Array] },
+    inferConfidence: 0,
+    inferText: "",
+    name: "info 06",
+    type: "NORMAL",
+    valueType: "ALL",
+  },
+  {
+    boundingPoly: { vertices: [Array] },
+    inferConfidence: 0,
+    inferText: "",
+    name: "info 07",
+    type: "NORMAL",
+    valueType: "ALL",
+  },
+  {
+    boundingPoly: { vertices: [Array] },
+    inferConfidence: 0,
+    inferText: "",
+    name: "info 08",
+    type: "NORMAL",
+    valueType: "ALL",
+  },
+];
+
+let parsingDate = null; // 'date'가 없을 경우 null로 초기화
+let medsList = [];
+
+result.forEach((item) => {
+  if (item.name === "date") {
+    parsingDate = item.inferText;
+  } else if (item.name.startsWith("med ")) {
+    const medNumber = item.name.split(" ")[1]; // 'med 01'에서 숫자 부분을 분리합니다.
+    const infoName = `info ${medNumber}`;
+    const infoItem = result.find((info) => info.name === infoName);
+    const medInfo = infoItem ? infoItem.inferText : null; // 연관된 'info' 항목의 inferText를 찾습니다.
+
+    medsList.push({
+      name: item.inferText || null, // 'med' 항목의 inferText가 없다면 null로 설정
+      info: medInfo, // 매칭되는 'info' 항목의 inferText, 없다면 null
+    });
+  }
+});
+
 function requestWithBase64(imageUrl) {
   axios
     .post(
@@ -120,7 +289,10 @@ function ImagePreview({ route, navigation }) {
       </View>
       <Button
         title={"확인"}
-        onPress={navigation.navigate("AddResult")}
+        onPress={navigation.navigate("AddResult", {
+          date: parsingDate,
+          meds: medsList,
+        })}
       ></Button>
     </View>
   );

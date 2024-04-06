@@ -55,7 +55,7 @@ function ImagePicker({ onImagePicked }) {
       image = await launchCameraAsync({ aspect: [16, 21], quality: 1 });
     }
 
-    console.log(image.assets[0].uri);
+    //console.log(image.assets[0].uri);
     setPickedImage(image.assets[0].uri);
     onImagePicked(image.assets[0].uri);
   }

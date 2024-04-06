@@ -4,7 +4,7 @@ import Title from "./Title";
 
 function Box({ title, children, style }) {
   return (
-    <View style={[styles.container, style]}>
+    <View style={[style, styles.container]}>
       <Title>{title}</Title>
       {children}
     </View>
