@@ -2,14 +2,15 @@ import { View, StyleSheet } from "react-native";
 
 import Box from "../ui/Box";
 import Goals from "./Goals";
+
 function Daily() {
   return (
     <View style={styles.container}>
       <Box title="오늘 드실 약">
         <View style={styles.goalsContainer}>
-          <Goals />
-          <Goals />
-          <Goals />
+          <Goals time={"아침"} />
+          <Goals time={"점심"} />
+          <Goals time={"저녁"} />
         </View>
       </Box>
     </View>

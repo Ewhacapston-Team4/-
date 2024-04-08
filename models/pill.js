@@ -6,7 +6,7 @@ class Pill {
     summary,
     //affordability,
     //complexity,
-    imageUrl
+    imageUrl,
     //duration,
     //ingredients,
     //steps
@@ -14,12 +14,18 @@ class Pill {
     //isVegan,
     //isVegetarian,
     //isLactoseFree
+    morning,
+    lunch,
+    evening
   ) {
     this.id = id;
     //this.categoryIds = categoryIds;
     this.name = name;
     this.summary = summary;
     this.imageUrl = imageUrl;
+    this.morning = morning;
+    this.lunch = lunch;
+    this.evening = evening;
     //this.ingredients = ingredients;
     //this.steps = steps;
     //this.duration = duration;

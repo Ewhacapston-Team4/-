@@ -7,20 +7,18 @@ export const MedicinesContext = createContext({
 });
 
 function MedicinesContextProvider({ children }) {
-  const [usersMedIds, setUsersMedIds] = useState([]);
+  const [usersMeds, setUsersMeds] = useState([]);
 
   function addMed(id) {
-    setUsersMedIds((currentIds) => [...currentIds, id]);
+    setUsersMeds((currentIds) => [...currentIds, id]);
   }
 
   function removeMed(id) {
-    setUsersMedIds((currentIds) =>
-      currentIds.filter((medIds) => medIds !== id)
-    );
+    setUsersMeds((currentIds) => currentIds.filter((medIds) => medIds !== id));
   }
 
   const value = {
-    ids: usersMedIds,
+    ids: usersMeds,
     addMed: addMed,
     removeMed: removeMed,
   };

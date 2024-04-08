@@ -1,21 +1,22 @@
-import { Text, View, TextInput, StyleSheet } from "react-native";
+import { View, TextInput, StyleSheet, Pressable } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import React, { useState } from "react";
 
 import { Colors } from "react-native/Libraries/NewAppScreen";
-import Box from "../ui/Box";
 
-function SearchBox({ placeholder, keyword, onChangeText }) {
+function SearchBox({ placeholder, keyword, onChangeText, onPress }) {
   return (
-    <View style={styles.container}>
-      <Ionicons name="search" color={Colors.grey1} size={30} />
-      <TextInput
-        style={styles.inputContainer}
-        placeholder={placeholder}
-        onChangeText={onChangeText}
-        value={keyword}
-      />
-    </View>
+    <Pressable onPress={onPress}>
+      <View style={styles.container}>
+        <Ionicons name="search" color={Colors.grey1} size={30} />
+        <TextInput
+          style={styles.inputContainer}
+          placeholder={placeholder}
+          onChangeText={onChangeText}
+          value={keyword}
+        />
+      </View>
+    </Pressable>
   );
 }
 

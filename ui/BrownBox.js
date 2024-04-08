@@ -1,11 +1,15 @@
-import { View, StyleSheet, Text } from "react-native";
+import { View, StyleSheet, Text, Pressable } from "react-native";
 
 import Colors from "../constants/Colors";
 
-function BrownBox({ children }) {
+function BrownBox({ children, type }) {
   return (
-    <View style={styles.container}>
-      <Text style={styles.text}>{children}</Text>
+    <View
+      style={type === "checked" ? styles.checkedContainer : styles.container}
+    >
+      <Text style={type === "checked" ? styles.checkedText : styles.text}>
+        {children}
+      </Text>
     </View>
   );
 }
@@ -13,11 +17,18 @@ function BrownBox({ children }) {
 export default BrownBox;
 
 const styles = StyleSheet.create({
-  container: {
+  checkedContainer: {
     backgroundColor: Colors.grey3,
     padding: 10,
     borderRadius: 10,
     marginVertical: 2,
   },
-  text: { fontFamily: "nnsq-regular", fontSize: 20 },
+  container: {
+    backgroundColor: Colors.point,
+    padding: 10,
+    borderRadius: 10,
+    marginVertical: 2,
+  },
+  checkedText: { fontFamily: "nnsq-regular", fontSize: 20, color: "#adadad" },
+  text: { fontFamily: "nnsq-bold", fontSize: 20 },
 });

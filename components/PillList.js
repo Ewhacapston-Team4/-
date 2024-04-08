@@ -7,18 +7,20 @@ import PillItem from "./PillItem";
 
 function PillList() {
   return (
-    <Box title="드시고 계신 약" style={styles.rootContainer}>
-      <View style={styles.itemContainer}>
-        {PILLS.map((item) => (
-          <PillItem
-            key={item.id}
-            imageUrl={item.imageUrl}
-            pillName={item.name}
-            summary={item.summary}
-          />
-        ))}
-      </View>
-    </Box>
+    <View style={styles.rootContainer}>
+      <Box title="드시고 계신 약">
+        <View style={styles.itemContainer}>
+          {PILLS.map((item) => (
+            <PillItem
+              key={item.id}
+              imageUrl={item.imageUrl}
+              pillName={item.name}
+              summary={item.summary}
+            />
+          ))}
+        </View>
+      </Box>
+    </View>
   );
 }
 

@@ -1,8 +1,7 @@
-import { View, StyleSheet, ScrollView } from "react-native";
+import { StyleSheet, ScrollView } from "react-native";
 
 import Colors from "../constants/Colors";
 import Daily from "../components/Daily";
-import Box from "../ui/Box";
 import PillList from "../components/PillList";
 
 function Home() {
@@ -28,6 +27,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: Colors.bg1,
-    paddingTop: 75,
+    paddingTop: 90,
   },
 });

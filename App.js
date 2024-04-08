@@ -24,6 +24,7 @@ import SearchResult from "./screens/SearchResult";
 
 //context
 import MedicinesContextProvider from "./store/context/medicines-context";
+import DailyContextProvider from "./store/context/daily-context";
 
 SplashScreen.preventAutoHideAsync();
 
@@ -38,7 +39,7 @@ function StackNavigator1() {
       }}
     >
       <Stack.Screen name="SearchScreen" component={Search} />
-      <Stack.Screen name="SearchPhoto" component={SearchPhoto} />
+      <Stack.Screen name="SearchPhoto" component={StackNavigator4} />
       <Stack.Screen name="SearchName" component={SearchName} />
     </Stack.Navigator>
   );
@@ -53,6 +54,19 @@ function StackNavigator3() {
       <Stack.Screen name="main" component={AddPhoto} />
       <Stack.Screen name="ImagePreview" component={ImagePreview} />
       <Stack.Screen name="AddResult" component={AddResult} />
+    </Stack.Navigator>
+  );
+}
+function StackNavigator4() {
+  return (
+    <Stack.Navigator
+      screenOptions={{
+        headerShown: false,
+      }}
+    >
+      <Stack.Screen name="main" component={SearchPhoto} />
+      <Stack.Screen name="ImagePreview" component={ImagePreview} />
+      <Stack.Screen name="SearchResult" component={SearchResult} />
     </Stack.Navigator>
   );
 }
@@ -100,7 +114,7 @@ export default function App() {
   return (
     <>
       <StatusBar style="dark" />
-      <MedicinesContextProvider>
+      <DailyContextProvider>
         <NavigationContainer>
           <BottomTab.Navigator
             initialRouteName="Home"
@@ -193,7 +207,7 @@ export default function App() {
             />
           </BottomTab.Navigator>
         </NavigationContainer>
-      </MedicinesContextProvider>
+      </DailyContextProvider>
     </>
   );
 }

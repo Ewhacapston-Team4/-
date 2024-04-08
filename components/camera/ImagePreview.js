@@ -9,6 +9,8 @@ import * as FileSystem from "expo-file-system";
 import Colors from "../../constants/Colors";
 import AddResult from "../../screens/AddResult";
 
+import { searchImage } from "../../util/http";
+
 //API 호출
 
 //res.data.image[0]
@@ -272,12 +274,43 @@ function ImagePreview({ route, navigation }) {
       }
     };
 
-    ocrAPICall();
-    //requestWithFile();
+    const imgAPICall = async () => {
+      try {
+        const base64Img = await FileSystem.readAsStringAsync(imageUrl, {
+          encoding: FileSystem.EncodingType.Base64,
+        });
+        searchImage(base64Img);
+      } catch (error) {
+        console.error("Error reading image file:", error);
+      }
+    };
+
+    if (type === "add") {
+      ocrAPICall();
+    } else if (type === "search") {
+      imgAPICall();
+      console.log("search by image");
+    }
   }, [imageUrl]);
-  const { imageUrl } = route.params;
+  const { imageUrl: imageUrl, type: type } = route.params;
 
   //imageUrl to base64
+
+  let button;
+
+  if (type === "add") {
+    button = (
+      <Button
+        title={"확인"}
+        onPress={navigation.navigate("AddResult", {
+          date: parsingDate,
+          meds: medsList,
+        })}
+      ></Button>
+    );
+  } else if (type === "search") {
+    console.log("search mode");
+  }
   return (
     <View style={styles.container}>
       <View style={styles.imageContainer}>
@@ -287,13 +320,7 @@ function ImagePreview({ route, navigation }) {
           <Text>No image available</Text>
         )}
       </View>
-      <Button
-        title={"확인"}
-        onPress={navigation.navigate("AddResult", {
-          date: parsingDate,
-          meds: medsList,
-        })}
-      ></Button>
+      {button}
     </View>
   );
 }

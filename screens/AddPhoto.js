@@ -6,18 +6,21 @@ import Colors from "../constants/Colors";
 import ImagePicker from "../components/camera/ImagePicker";
 
 function AddPhoto({ navigation }) {
-  const [pickedImage, setPickedImage] = useState(null);
+  const [pickedBagImage, setPickedBagImage] = useState(null);
 
   function onImagePicked(imageUrl) {
-    setPickedImage(imageUrl);
+    setPickedBagImage(imageUrl);
   }
 
   useEffect(() => {
-    if (pickedImage) {
+    if (pickedBagImage) {
       // navigation.navigate 함수에서 매개변수 전달을 객체 형태로 수정
-      navigation.navigate("ImagePreview", { imageUrl: pickedImage });
+      navigation.navigate("ImagePreview", {
+        imageUrl: pickedBagImage,
+        type: "add",
+      });
     }
-  }, [pickedImage, navigation]);
+  }, [pickedBagImage, navigation]);
 
   return (
     <View style={styles.container}>
