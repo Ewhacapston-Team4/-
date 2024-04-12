@@ -1,7 +1,7 @@
 import { StyleSheet, ScrollView } from "react-native";
 
 import Colors from "../constants/Colors";
-import Daily from "../components/Daily";
+import Daily from "../components/daily/Daily";
 import PillList from "../components/PillList";
 
 function Home() {

@@ -1,8 +1,8 @@
 import { StyleSheet, View, Image } from "react-native";
 
-import Colors from "../constants/Colors";
-import Title1 from "../ui/Title1";
-import SelectButton from "../components/SelectButton";
+import Colors from "../../constants/Colors";
+import Title1 from "../../ui/Title1";
+import SelectButton from "../../components/SelectButton";
 
 function Search({ navigation }) {
   const navigateToScreen = (screenName) => {
@@ -15,7 +15,7 @@ function Search({ navigation }) {
       <Title1>알약을 찾아보세요</Title1>
       <SelectButton
         title="사진 찍어서 찾기"
-        imageUrl="../assets/images/image2.png"
+        imageKey="icon2"
         onPress={navigateToScreen("SearchPhoto")}
       />
       <SelectButton

@@ -39,7 +39,7 @@ function ImagePicker({ onImagePicked }) {
   }
 
   async function takeImageHandler(mode) {
-    let image = {};
+    let image;
     if (mode === "gallery") {
       await requestMediaLibraryPermissionsAsync();
       image = await launchImageLibraryAsync({

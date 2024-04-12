@@ -2,26 +2,44 @@ import { StyleSheet, View, Text } from "react-native";
 
 import Colors from "../constants/Colors";
 
-function ResultItem({ title, value, info }) {
-  return (
-    <View style={styles.container}>
-      <View>
-        <Text style={styles.titleStyle}>{title}</Text>
-      </View>
-      <View>
-        <Text style={styles.valueStyle}>{value}</Text>
-      </View>
-      {info !== null ? (
+function ResultItem({ title, value, info, type }) {
+  let content;
+
+  if (type === "date") {
+    content = (
+      <View style={styles.container}>
         <View>
-          <Text style={styles.infoStyle}>{info}</Text>
+          <Text style={styles.titleStyle}>{title}</Text>
         </View>
-      ) : (
         <View>
-          <Text style={styles.infoStyle}>인식 안됨</Text>
+          <Text style={styles.valueStyle}>{value}</Text>
         </View>
-      )}
-    </View>
-  );
+      </View>
+    );
+  } else {
+    content = (
+      <View style={styles.container}>
+        <View>
+          <Text style={styles.index}>{title}</Text>
+        </View>
+        <View style={styles.newContainer}>
+          <View>
+            <Text style={styles.valueStyle}>{value}</Text>
+          </View>
+          {info !== null ? (
+            <View>
+              <Text style={styles.infoStyle}>{info}</Text>
+            </View>
+          ) : (
+            <View>
+              <Text style={styles.infoStyle}>인식 안됨</Text>
+            </View>
+          )}
+        </View>
+      </View>
+    );
+  }
+  return <>{content}</>;
 }
 
 export default ResultItem;
@@ -31,13 +49,12 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "flex-start",
-    margin: 10,
+    marginVertical: 10,
   },
   titleStyle: {
     fontFamily: "nnsq-bold",
     fontSize: 22,
     paddingRight: 15,
-    minWidth: 120,
   },
   valueStyle: {
     fontFamily: "nnsq-regular",
@@ -59,4 +76,10 @@ const styles = StyleSheet.create({
     textAlign: "center",
     textAlignVertical: "center",
   },
+  index: {
+    fontFamily: "nnsq-bold",
+    fontSize: 15,
+    paddingRight: 15,
+  },
+  newContainer: {},
 });

@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import { StatusBar } from "expo-status-bar";
 import { StyleSheet, Text, View, Platform } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
@@ -10,20 +10,17 @@ import * as SplashScreen from "expo-splash-screen";
 
 import Colors from "./constants/Colors";
 import Home from "./screens/Home";
-import Add from "./screens/Add";
-import Search from "./screens/Search";
-import MyPage from "./screens/MyPage";
-import Schedule from "./screens/Schedule";
-import SearchPhoto from "./screens/SearchPhoto";
-import SearchName from "./screens/SearchName";
-import AddPhoto from "./screens/AddPhoto";
-import AddName from "./screens/AddName";
-import AddResult from "./screens/AddResult";
+import SearchPhoto from "./screens/Search/SearchPhoto";
+import SearchName from "./screens/Search/SearchName";
+import SearchResult from "./screens/Search/SearchResult";
+import Search from "./screens/Search/Search";
+import AddPhoto from "./screens/Add/AddPhoto";
+import AddName from "./screens/Add/AddName";
+import AddResult from "./screens/Add/AddResult";
+import Add from "./screens/Add/Add";
 import ImagePreview from "./components/camera/ImagePreview";
-import SearchResult from "./screens/SearchResult";
 
 //context
-import MedicinesContextProvider from "./store/context/medicines-context";
 import DailyContextProvider from "./store/context/daily-context";
 
 SplashScreen.preventAutoHideAsync();

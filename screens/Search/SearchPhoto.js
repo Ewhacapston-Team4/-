@@ -1,9 +1,9 @@
 import { View, StyleSheet, Button } from "react-native";
 import { useState, useEffect } from "react";
 
-import Title1 from "../ui/Title1";
-import Colors from "../constants/Colors";
-import ImagePicker from "../components/camera/ImagePicker";
+import Title1 from "../../ui/Title1";
+import Colors from "../../constants/Colors";
+import ImagePicker from "../../components/camera/ImagePicker";
 
 function SearchPhoto({ navigation }) {
   const [pickedMedImage, setPickedMedImage] = useState(null);

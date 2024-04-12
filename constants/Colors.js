@@ -7,6 +7,7 @@ const Colors = {
   //grey2:'',
   grey3: "#E8E5DE",
   grey4: "#A8B0BF",
+  olive: "#CDC44C",
 };
 
 export default Colors;

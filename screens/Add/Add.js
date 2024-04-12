@@ -1,11 +1,11 @@
 import { StyleSheet, View, Image } from "react-native";
 
-import Colors from "../constants/Colors";
-import Title1 from "../ui/Title1";
-import SelectButton from "../components/SelectButton";
+import Colors from "../../constants/Colors";
+import Title1 from "../../ui/Title1";
+import SelectButton from "../../components/SelectButton";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import ImagePicker from "../components/camera/ImagePicker";
-import ImagePreview from "../components/camera/ImagePreview";
+import ImagePicker from "../../components/camera/ImagePicker";
+import ImagePreview from "../../components/camera/ImagePreview";
 
 const Stack = createNativeStackNavigator();
 
@@ -20,7 +20,7 @@ function Add({ navigation }) {
       <Title1>드시는 약 등록하기</Title1>
       <SelectButton
         title="약봉투 찍어서 등록"
-        imageUrl="../assets/images/image2.png"
+        imageKey="icon1"
         onPress={navigateToScreen("AddPhoto")}
       />
       <SelectButton

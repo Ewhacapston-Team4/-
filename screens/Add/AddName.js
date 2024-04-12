@@ -1,6 +1,6 @@
 import { View, Button } from "react-native";
 
-import Title from "../ui/Title";
+import Title from "../../ui/Title";
 
 function AddName() {
   return (

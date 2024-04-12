@@ -1,13 +1,15 @@
 import { View, StyleSheet, Image, Pressable, Text } from "react-native";
-import { useState } from "react";
 
 import Colors from "../constants/Colors";
+import { Platform } from "react-native";
 
-function PillItem({ pillName, imageUrl, summary, style }) {
+function PillItem({ pillName, imageUrl }) {
   return (
     <Pressable style={styles.button}>
-      <Image source={{ uri: imageUrl }} style={styles.image} />
-      <Text style={styles.text}>{pillName}</Text>
+      <View style={styles.view}>
+        <Image source={{ uri: imageUrl }} style={styles.image} />
+        <Text style={styles.text}>{pillName}</Text>
+      </View>
     </Pressable>
   );
 }
@@ -16,23 +18,48 @@ export default PillItem;
 
 const styles = StyleSheet.create({
   button: {
-    justifyContent: "center",
-    height: 100,
-    margin: 2,
-    borderRadius: 8,
     backgroundColor: Colors.grey3,
-    width: "32%",
-    paddingTop: 8,
-    paddingHorizontal: 10,
+    // Pressable에 적절한 높이 값을 지정
+    width: "31%",
+    height: 110,
+    margin: 3.5,
+    borderRadius: 8,
+    justifyContent: "center",
     alignItems: "center",
-    overflow: "hidden",
+    paddingHorizontal: 10,
+    ...Platform.select({
+      android: {
+        paddingTop: 10,
+        elevation: 3,
+      },
+    }),
   },
-  image: {
-    flex: 0.6,
+  view: {
+    justifyContent: "center",
+    alignItems: "center",
     height: "100%",
     width: "100%",
-    resizeMode: "contain",
-    maxHeight: 60,
   },
-  text: { flex: 0.4, fontFamily: "noto-sans-bold", fontSize: 15 },
+  image: {
+    // 고정 높이 및 비율 조정
+    height: "60%", // 전체 높이의 60%
+    width: "100%", // 부모 너비와 동일하게 설정
+    resizeMode: "contain",
+  },
+  text: {
+    // 고정 높이 및 너비 조정
+    ...Platform.select({
+      ios: {
+        height: "25%",
+      },
+      android: {
+        height: "45%",
+      },
+    }),
+    // 전체 높이의 30%
+    width: "100%", // 부모 너비와 동일하게 설정
+    textAlign: "center", // 가운데 정렬
+    fontFamily: "noto-sans-bold",
+    fontSize: 15,
+  },
 });

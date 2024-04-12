@@ -1,11 +1,11 @@
 import { Text, View, StyleSheet } from "react-native";
 import { useEffect } from "react";
 
-import Colors from "../constants/Colors";
-import Title1 from "../ui/Title1";
-import Box from "../ui/Box";
+import Colors from "../../constants/Colors";
+import Title1 from "../../ui/Title1";
+import Box from "../../ui/Box";
 
-import { searchInfos, getUsers } from "../util/http";
+import { searchInfos, getUsers } from "../../util/http";
 
 function SearchResult() {
   function searchInfo() {

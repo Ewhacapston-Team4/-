@@ -30,10 +30,15 @@ const styles = StyleSheet.create({
   rootContainer: {
     width: "90%",
     justifyContent: "center",
+    alignItems: "center",
   },
   itemContainer: {
     flexDirection: "row", // 항목들을 가로 방향으로 나열
     flexWrap: "wrap", // 여러 줄로 나누어 표시
     justifyContent: "flex-start",
+    shadowColor: "#000000",
+    shadowOffset: { width: 0, height: 0 },
+    shadowOpacity: 0.37,
+    shadowRadius: 2.5,
   },
 });

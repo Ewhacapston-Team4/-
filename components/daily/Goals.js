@@ -2,11 +2,11 @@ import { View, StyleSheet, Text } from "react-native";
 import { useContext } from "react";
 import { Ionicons } from "@expo/vector-icons";
 
-import Colors from "../constants/Colors";
+import Colors from "../../constants/Colors";
 import GoalItem from "./GoalItem";
 
-import { PILLS } from "../datas/pills-list";
-import { DailyContext } from "../store/context/daily-context";
+import { PILLS } from "../../datas/pills-list";
+import { DailyContext } from "../../store/context/daily-context";
 
 function Goals({ time }) {
   const checkedMedsCtx = useContext(DailyContext);
@@ -41,9 +41,9 @@ function Goals({ time }) {
   let icon;
 
   if (allChecked) {
-    icon = <Ionicons name="checkmark-circle" color={Colors.point} size={31} />;
+    icon = <Ionicons name="checkmark-circle" color={Colors.point} size={40} />;
   } else {
-    icon = <Ionicons name="ellipse" color={Colors.grey1} size={31} />;
+    icon = <Ionicons name="ellipse" color={Colors.grey1} size={40} />;
   }
 
   return (
@@ -63,12 +63,12 @@ const styles = StyleSheet.create({
   container: { justifyContent: "space-between", alignItems: "center" },
   labelContainer: {
     alignItems: "center",
-    paddingBottom: 15,
+    paddingBottom: 10,
   },
   time: {
     fontFamily: "nnsq-bold",
     fontSize: 20,
-    paddingTop: 8,
+    paddingTop: 10,
     paddingBottom: 10,
   },
 });

@@ -9,7 +9,7 @@ export default Title;
 const styles = StyleSheet.create({
   Text: {
     fontFamily: "nnsq-bold",
-    fontSize: 25,
+    fontSize: 28,
     paddingBottom: 20,
   },
 });

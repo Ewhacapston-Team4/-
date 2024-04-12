@@ -1,10 +1,10 @@
-import { View, StyleSheet } from "react-native";
+import { View, StyleSheet, Text } from "react-native";
 import { useState, useEffect, Fragment } from "react";
 
-import Box from "../ui/Box";
+import Box from "../../ui/Box";
 
-import Colors from "../constants/Colors";
-import ResultItem from "../components/ResultItem";
+import Colors from "../../constants/Colors";
+import ResultItem from "../../components/ResultItem";
 
 let date;
 
@@ -23,14 +23,16 @@ function AddResult({ route }) {
   return (
     <View style={styles.container}>
       <Box title={"인식 결과"}>
-        {date && <ResultItem title={"약 타신 날"} value={date} />}
+        {date && <ResultItem title={"약 타신 날"} value={date} type={"date"} />}
+        <Text style={styles.text}>타신 약</Text>
         {medList.map((med, index) => (
           <Fragment key={index}>
             {med.name && (
               <ResultItem
-                title={`약 0${index + 1}`}
+                title={`0${index + 1}`}
                 value={med.name}
                 info={med.info}
+                type={"med"}
               />
             )}
           </Fragment>
@@ -49,5 +51,12 @@ const styles = StyleSheet.create({
     paddingTop: 100,
     paddingHorizontal: 20,
     paddingBottom: "4%",
+  },
+  text: {
+    fontFamily: "nnsq-bold",
+    fontSize: 22,
+    paddingRight: 15,
+    minWidth: 120,
+    paddingVertical: 15,
   },
 });

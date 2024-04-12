@@ -11,11 +11,12 @@ import {
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { useEffect, useState } from "react";
-import { searchAPI } from "../datas/SearchData";
-import { searchInfos } from "../util/http";
+import { searchAPI } from "../../datas/SearchData";
+import { searchName } from "../../util/http";
+import { searchInfos } from "../../util/http";
 
-import Title1 from "../ui/Title1";
-import Colors from "../constants/Colors";
+import Title1 from "../../ui/Title1";
+import Colors from "../../constants/Colors";
 
 function SearchName() {
   const [loading, setLoading] = useState(true);
@@ -29,12 +30,13 @@ function SearchName() {
     const getList = () => {
       try {
         setLoading(true);
-
+        console.log(keyword);
         //검색 API 호출
-        const data = searchAPI(keyword);
+        searchName("발사르텔정160밀리그램(발사르탄)");
 
-        setList(data);
+        //dlsetList(data);
       } catch (error) {
+        console.log(error);
       } finally {
         setLoading(false);
       }
@@ -48,6 +50,8 @@ function SearchName() {
       clearTimeout(debounce);
     };
   }, [keyword]);
+
+  //searchInfos("타이레놀");
 
   return (
     <View style={styles.container}>

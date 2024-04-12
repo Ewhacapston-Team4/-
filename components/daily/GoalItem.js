@@ -1,11 +1,11 @@
 import { Pressable, StyleSheet } from "react-native";
 import { useContext } from "react";
 
-import Colors from "../constants/Colors";
-import BrownBox from "../ui/BrownBox";
+import Colors from "../../constants/Colors";
+import BrownBox from "../../ui/BrownBox";
 
-import { DailyContext } from "../store/context/daily-context";
-import { PILLS } from "../datas/pills-list";
+import { DailyContext } from "../../store/context/daily-context";
+import { PILLS } from "../../datas/pills-list";
 
 function GoalItem({ content, medId }) {
   const checkedMedsCtx = useContext(DailyContext);

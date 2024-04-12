@@ -3,13 +3,18 @@ import { StyleSheet, View, Text, Image, Pressable } from "react-native";
 import Box from "../ui/Box";
 import Colors from "../constants/Colors";
 
-function SelectButton({ title, imageUrl, children, onPress }) {
+const images = {
+  icon1: require("../assets/images/image1.png"),
+  icon2: require("../assets/images/image2.png"),
+};
+
+function SelectButton({ title, imageKey, children, onPress }) {
   return (
     <View style={styles.rootContainer}>
       <Pressable style={styles.button} onPress={onPress}>
         <Image
-          source={require("../assets/images/image1.png")}
-          style={styles.image}
+          source={images[imageKey]}
+          style={imageKey === "icon1" ? styles.image : styles.image2}
         />
         <View style={styles.titleContainer}>
           <Text style={styles.title}>{title}</Text>
@@ -40,6 +45,11 @@ const styles = StyleSheet.create({
   image: {
     height: "85%", // 부모 컨테이너에 맞게 너비 설정, // 적절한 높이 설정
     resizeMode: "contain", // 이미지가 잘리지 않도록 조정
+  },
+  image2: {
+    height: "100%", // 부모 컨테이너에 맞게 너비 설정, // 적절한 높이 설정
+    width: "105%",
+    resizeMode: "contain",
   },
   titleContainer: {
     position: "absolute", // 절대 위치 사용
