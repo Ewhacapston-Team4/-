@@ -4,7 +4,14 @@ import React, { useState } from "react";
 
 import { Colors } from "react-native/Libraries/NewAppScreen";
 
-function SearchBox({ placeholder, keyword, onChangeText, onPress }) {
+function SearchBox({
+  placeholder,
+  keyword,
+  onChangeText,
+  onPress,
+  onFocus,
+  editable,
+}) {
   return (
     <Pressable onPress={onPress}>
       <View style={styles.container}>
@@ -12,8 +19,11 @@ function SearchBox({ placeholder, keyword, onChangeText, onPress }) {
         <TextInput
           style={styles.inputContainer}
           placeholder={placeholder}
+          placeholderTextColor={"grey"}
           onChangeText={onChangeText}
           value={keyword}
+          onFocus={onFocus}
+          editable={editable}
         />
       </View>
     </Pressable>
@@ -40,5 +50,6 @@ const styles = StyleSheet.create({
     paddingLeft: 5,
     fontSize: 20,
     textAlignVertical: "center",
+    fontFamily: "nnsq-bold",
   },
 });

@@ -8,8 +8,9 @@ import Colors from "../../constants/Colors";
 import Box from "../../ui/Box";
 
 import { searchImage } from "../../util/http";
-import { searchName } from "../../util/http";
+import { searchNumber } from "../../util/http";
 import { searchInfos } from "../../util/http";
+import { searchProhibited } from "../../util/http";
 
 //API 호출
 
@@ -278,13 +279,16 @@ function ImagePreview({ route, navigation }) {
     const imgAPICall = async () => {
       try {
         const response = await searchImage(imageUrl);
-        const trimResponse = response.trim();
-        setName(trimResponse);
-        const id = await searchName(name);
+        //const trimResponse = response.trim();
+        //console.log(trimResponse);
+        //setName(trimResponse);
+        setName("씨코나졸정(이트라코나졸)");
+        const id = await searchNumber(name);
         console.log("id", id);
-        setId(id);
-        console.log("ID:", ID);
-        await searchInfos(ID);
+        //setId(id);
+        //console.log("ID:", ID);
+        //await searchInfos(id);
+        await searchProhibited(id);
       } catch (error) {
         console.error("Error reading image file:", error);
       }

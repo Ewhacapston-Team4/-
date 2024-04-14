@@ -30,7 +30,6 @@ function SearchName() {
     const getList = () => {
       try {
         setLoading(true);
-        console.log(keyword);
         //검색 API 호출
         searchName("발사르텔정160밀리그램(발사르탄)");
 
@@ -116,7 +115,7 @@ export default SearchName;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: Colors.bg1,
+    backgroundColor: Colors.bg2,
     paddingTop: 100,
     paddingHorizontal: 20,
     paddingBottom: "4%",

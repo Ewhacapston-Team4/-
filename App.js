@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { StatusBar } from "expo-status-bar";
-import { StyleSheet, Text, View, Platform } from "react-native";
+import { StyleSheet, Animated, Easing, Platform } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
@@ -33,6 +33,10 @@ function StackNavigator1() {
     <Stack.Navigator
       screenOptions={{
         headerShown: false,
+        ...Platform.select({
+          android: { animation: "slide_from_bottom" },
+          ios: { animation: "slide_from_bottom" },
+        }),
       }}
     >
       <Stack.Screen name="SearchScreen" component={Search} />

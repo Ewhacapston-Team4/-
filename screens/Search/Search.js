@@ -1,8 +1,11 @@
-import { StyleSheet, View, Image } from "react-native";
+import { StyleSheet, View, Image, Animated } from "react-native";
+import { useRef, useEffect, useCallback } from "react";
+import { useFocusEffect } from "@react-navigation/native";
 
 import Colors from "../../constants/Colors";
 import Title1 from "../../ui/Title1";
 import SelectButton from "../../components/SelectButton";
+import SearchBox from "../../components/SearchBox";
 
 function Search({ navigation }) {
   const navigateToScreen = (screenName) => {
@@ -10,19 +13,28 @@ function Search({ navigation }) {
       navigation.navigate(screenName);
     };
   };
+
   return (
-    <View style={styles.container}>
-      <Title1>알약을 찾아보세요</Title1>
-      <SelectButton
-        title="사진 찍어서 찾기"
-        imageKey="icon2"
-        onPress={navigateToScreen("SearchPhoto")}
-      />
-      <SelectButton
+    <View style={styles.rootContainer}>
+      <Title1 style={styles.title}>알약을 찾아보세요</Title1>
+      <View style={styles.container}>
+        <SelectButton
+          title="사진 찍어서 찾기"
+          imageKey="icon2"
+          onPress={navigateToScreen("SearchPhoto")}
+        />
+        <View style={styles.gap}></View>
+        <SearchBox
+          placeholder={"약 이름을 검색해보세요."}
+          onPress={navigateToScreen("SearchName")}
+          editable={false}
+        ></SearchBox>
+        {/* <SelectButton
         title="이름으로 찾기"
         imageUrl="../assets/images/image1.png"
         onPress={navigateToScreen("SearchName")}
-      />
+      /> */}
+      </View>
     </View>
   );
 }
@@ -30,12 +42,25 @@ function Search({ navigation }) {
 export default Search;
 
 const styles = StyleSheet.create({
-  container: {
+  rootContainer: {
     flex: 1,
-    backgroundColor: Colors.bg1,
+    backgroundColor: Colors.bg2,
     paddingTop: 100,
     paddingHorizontal: 20,
     paddingBottom: "4%",
   },
-  image: {},
+  subContainer: {
+    flex: 1,
+    backgroundColor: Colors.bg2,
+  },
+  container: { flex: 1, justifyContent: "center" },
+  gap: {
+    paddingVertical: 10,
+  },
+  title: {
+    position: "absolute", // 절대 위치로 설정
+    top: 100, // 상단으로부터 20의 간격
+    left: 20, // 왼쪽으로부터 20의 간격
+    right: 20, // 오른쪽으로부터 20의 간격, 컨테이너 내에서 가운데 정렬을 위해
+  },
 });

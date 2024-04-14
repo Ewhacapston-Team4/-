@@ -1,10 +1,27 @@
 import axios from "axios";
 
+const server = "http://116.32.121.121";
+
 export async function searchInfos(keyword) {
   try {
-    const response = await axios.get(
-      `http://10.240.188.76:3000/api/pill/combine/${keyword}`
-    );
+    console.log("Search Infos");
+    const response = await axios.get(`${server}/api/pill/search/${keyword}`);
+
+    console.log("Response data:", response.data);
+  } catch (error) {
+    console.error("Error fetching data:", {
+      response: error.response,
+      message: error.message,
+      request: error.request,
+    });
+    //return null; // 에러 발생 시 null 반환
+  }
+}
+
+export async function searchProhibited(keyword) {
+  try {
+    console.log("Search Prohibited");
+    const response = await axios.get(`${server}/api/pill/combine/${keyword}`);
 
     console.log("Response data:", response.data);
   } catch (error) {
@@ -28,7 +45,7 @@ export async function searchImage(imageUrl) {
     //formData.append("image", imageUrl);
 
     const response = await axios.post(
-      "http://10.240.188.76:3000/api/pill/upload/tri",
+      `${server}/api/pill/upload/tri`,
       formData,
       {
         headers: {
@@ -44,12 +61,13 @@ export async function searchImage(imageUrl) {
   }
 }
 
-export async function searchName(keyword) {
+export async function searchNumber(keyword) {
+  console.log("Searching for keyword:", keyword);
   const trimKeyword = keyword.trim();
   console.log("Searching for keyword:", trimKeyword);
   try {
     const response = await axios.get(
-      `http://10.240.188.76:3000/api/pill/searchSeq/${trimKeyword}`
+      `${server}/api/pill/searchSeq/${trimKeyword}`
     );
     console.log("Response data:", response.data);
     return response.data;
@@ -66,7 +84,7 @@ export async function searchName(keyword) {
 
 export function getUsers() {
   axios
-    .get(`http://116.32.121.121:3000/api/users`)
+    .get(`${server}/api/users`)
     .then((response) => {
       console.log(response.data);
     })
