@@ -50,6 +50,10 @@ function StackNavigator3() {
     <Stack.Navigator
       screenOptions={{
         headerShown: false,
+        ...Platform.select({
+          android: { animation: "slide_from_bottom" },
+          ios: { animation: "slide_from_bottom" },
+        }),
       }}
     >
       <Stack.Screen name="main" component={AddPhoto} />
@@ -66,7 +70,13 @@ function StackNavigator4() {
       }}
     >
       <Stack.Screen name="main" component={SearchPhoto} />
-      <Stack.Screen name="ImagePreview" component={ImagePreview} />
+      <Stack.Screen
+        name="ImagePreview"
+        component={ImagePreview}
+        screenOptions={{
+          tabBarStyle: { display: "none" },
+        }}
+      />
       <Stack.Screen name="SearchResult" component={SearchResult} />
     </Stack.Navigator>
   );

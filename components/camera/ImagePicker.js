@@ -9,6 +9,8 @@ import {
 } from "expo-image-picker";
 import { useState, useEffect } from "react";
 
+import BasicButton from "../../ui/BasicButton";
+
 function ImagePicker({ onImagePicked }) {
   const [pickedImage, setPickedImage] = useState();
   const [galleryPersmissionInformation, galleryRequestPermission] =
@@ -62,8 +64,8 @@ function ImagePicker({ onImagePicked }) {
 
   return (
     <View>
-      <Button title="사진 찍기" onPress={takeImageHandler} />
-      <Button
+      <BasicButton title="사진 찍기" onPress={takeImageHandler} />
+      <BasicButton
         title="갤러리에서 고르기"
         onPress={() => takeImageHandler("gallery")}
       />

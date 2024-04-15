@@ -15,6 +15,7 @@ function AddResult({ route }) {
   useEffect(() => {
     if (route.params) {
       const { date: incomingDate, meds: incomingMeds } = route.params;
+      //console.log(incomingDate, incomingMeds);
       setDate(incomingDate);
       setMedList(incomingMeds);
     }
@@ -47,7 +48,7 @@ export default AddResult;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: Colors.bg1,
+    backgroundColor: Colors.bg2,
     paddingTop: 100,
     paddingHorizontal: 20,
     paddingBottom: "4%",

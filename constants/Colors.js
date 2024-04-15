@@ -1,6 +1,7 @@
 const Colors = {
   bg1: "#FDF9F2",
   bg2: "#f0f5fc",
+  bg3: "#2c5a73",
   darkblue: "#0A2E42",
   main: "#5384D5",
   point: "#4ECDC4",

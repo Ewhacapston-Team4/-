@@ -2,10 +2,10 @@ import { View, StyleSheet, Text } from "react-native";
 
 import Title from "./Title";
 
-function Box({ title, children, style }) {
+function Box({ title, children, style, type }) {
   return (
     <View style={[styles.container, style]}>
-      <Title>{title}</Title>
+      {type === "notitle" ? <></> : <Title>{title}</Title>}
       {children}
     </View>
   );

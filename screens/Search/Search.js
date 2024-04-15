@@ -49,10 +49,6 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     paddingBottom: "4%",
   },
-  subContainer: {
-    flex: 1,
-    backgroundColor: Colors.bg2,
-  },
   container: { flex: 1, justifyContent: "center" },
   gap: {
     paddingVertical: 10,

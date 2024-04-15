@@ -36,7 +36,7 @@ export default AddPhoto;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: Colors.bg1,
+    backgroundColor: Colors.bg2,
     paddingTop: 100,
     paddingHorizontal: 20,
     paddingBottom: "4%",

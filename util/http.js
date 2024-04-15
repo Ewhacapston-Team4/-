@@ -23,14 +23,20 @@ export async function searchProhibited(keyword) {
     console.log("Search Prohibited");
     const response = await axios.get(`${server}/api/pill/combine/${keyword}`);
 
-    console.log("Response data:", response.data);
+    //console.log("Response data:", response.data);
+    if (
+      response.data !== null &&
+      !response.data.startsWith("Empty DataFrame Columns:")
+    ) {
+      return response.data;
+    }
   } catch (error) {
     console.error("Error fetching data:", {
       response: error.response,
       message: error.message,
       request: error.request,
     });
-    //return null; // 에러 발생 시 null 반환
+    return null; // 에러 발생 시 null 반환
   }
 }
 
@@ -62,9 +68,9 @@ export async function searchImage(imageUrl) {
 }
 
 export async function searchNumber(keyword) {
-  console.log("Searching for keyword:", keyword);
+  //console.log("Searching for keyword:", keyword);
   const trimKeyword = keyword.trim();
-  console.log("Searching for keyword:", trimKeyword);
+  //console.log("Searching for keyword:", trimKeyword);
   try {
     const response = await axios.get(
       `${server}/api/pill/searchSeq/${trimKeyword}`
