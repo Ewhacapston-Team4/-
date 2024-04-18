@@ -7,7 +7,7 @@ function PillItem({ pillName, imageUrl }) {
   return (
     <Pressable style={styles.button}>
       <View style={styles.view}>
-        <Image source={{ uri: imageUrl }} style={styles.image} />
+        <Image source={imageUrl} style={styles.image} />
         <Text style={styles.text}>{pillName}</Text>
       </View>
     </Pressable>

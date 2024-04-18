@@ -1,4 +1,4 @@
-import { View, StyleSheet, Text } from "react-native";
+import { ScrollView, StyleSheet, Text } from "react-native";
 import { useState, useEffect, Fragment } from "react";
 
 import Box from "../../ui/Box";
@@ -22,7 +22,7 @@ function AddResult({ route }) {
   }, [route.params]);
 
   return (
-    <View style={styles.container}>
+    <ScrollView style={styles.container}>
       <Box title={"인식 결과"}>
         {date && <ResultItem title={"약 타신 날"} value={date} type={"date"} />}
         <Text style={styles.text}>타신 약</Text>
@@ -39,7 +39,7 @@ function AddResult({ route }) {
           </Fragment>
         ))}
       </Box>
-    </View>
+    </ScrollView>
   );
 }
 

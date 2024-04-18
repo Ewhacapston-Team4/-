@@ -7,6 +7,8 @@ import * as FileSystem from "expo-file-system";
 import Colors from "../../constants/Colors";
 import TextAnimator from "../TextAnimator";
 
+import { PILLS } from "../../datas/pills-list";
+
 import { searchImage } from "../../util/http";
 import { searchNumber } from "../../util/http";
 import { searchInfos } from "../../util/http";
@@ -184,6 +186,42 @@ function processData(string) {
   return data;
 }
 
+function processInfoData(string) {
+  let data = [];
+
+  const lines = string.split("\n");
+
+  // 각 줄을 데이터 리스트에 추가합니다.
+  lines.forEach((line) => {
+    // 공백이 아닌 경우에만 데이터 리스트에 추가합니다.
+    if (line.trim() !== "") {
+      data.push(line.trim());
+    }
+  });
+
+  return data;
+}
+
+function checkProhibited(users_list, meds_list) {
+  const data = [];
+
+  users_list.forEach((userPill) => {
+    // meds_list에 있는 각 요소의 Id와 일치하는 약을 찾음
+    const matchedPill = meds_list.find((med) => med.num == userPill.id);
+    if (matchedPill) {
+      // 일치하는 약이 있으면 data 배열에 추가
+      data.push({
+        num: userPill.id,
+        name: userPill.name,
+        imageUrl: userPill.imageUrl,
+        summary: userPill.summary,
+      });
+    }
+  });
+
+  return data;
+}
+
 function requestWithFile(imageUrl) {
   // image file object. Example: fs.createReadStream('./example.png')
   //const file = "../../assets/images/sampleImage.jpg"; //local relative
@@ -248,7 +286,7 @@ function ImagePreview({ route, navigation }) {
         },
         {
           headers: {
-            "X-OCR-SECRET": "", // Secret Key
+            "X-OCR-SECRET": "SW1NTHVlVUlSWXpQd2x2bVJzTWNJUk5pUHlLV09GWG0=", // Secret Key
           },
         }
       )
@@ -318,12 +356,23 @@ function ImagePreview({ route, navigation }) {
             //let name = "씨코나졸정(이트라코나졸)";
             //console.log("name:", name);
             const id = await searchNumber(name);
+            const infos = await searchInfos(id);
+            //console.log("api 호출 결과 info:", infos);
+            let infos_result;
+            if (infos !== null) {
+              infos_result = processInfoData(infos);
+            } else {
+              infos_result = null;
+            }
+
+            console.log("infos_result:", infos_result);
             const prohibited = await searchProhibited(id);
 
             let prohibited_result = [];
 
             if (prohibited !== null) {
               prohibited_result = processData(prohibited);
+              prohibited_result = checkProhibited(PILLS, prohibited_result);
             } else {
               prohibited_result = null;
             }
@@ -331,6 +380,7 @@ function ImagePreview({ route, navigation }) {
               name: name,
               id: id,
               imageUrl: imageUrl,
+              infos: infos_result,
               prohibited: prohibited_result,
             });
           } else {
@@ -382,10 +432,10 @@ function ImagePreview({ route, navigation }) {
           textStyle={styles.textStyle}
           onFinish={onFinish}
         />
-        {imageUrl ? (
+        {imageUrl && type === "search" ? (
           <Image style={styles.image} source={{ uri: imageUrl }} />
         ) : (
-          <Text>No image available</Text>
+          <></>
         )}
       </View>
       {/* {name ? (

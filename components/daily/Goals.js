@@ -60,10 +60,13 @@ function Goals({ time }) {
 export default Goals;
 
 const styles = StyleSheet.create({
-  container: { justifyContent: "space-between", alignItems: "center" },
+  container: {
+    justifyContent: "space-between",
+    alignItems: "center",
+  },
   labelContainer: {
     alignItems: "center",
-    paddingBottom: 10,
+    //paddingBottom: 10,
   },
   time: {
     fontFamily: "nnsq-bold",

@@ -1,11 +1,9 @@
 import { Pressable, StyleSheet } from "react-native";
 import { useContext } from "react";
 
-import Colors from "../../constants/Colors";
 import BrownBox from "../../ui/BrownBox";
 
 import { DailyContext } from "../../store/context/daily-context";
-import { PILLS } from "../../datas/pills-list";
 
 function GoalItem({ content, medId }) {
   const checkedMedsCtx = useContext(DailyContext);
@@ -20,7 +18,7 @@ function GoalItem({ content, medId }) {
     }
   }
   return (
-    <Pressable onPress={medPressHandler}>
+    <Pressable style={styles.container} onPress={medPressHandler}>
       <BrownBox type={medIsChecked ? "checked" : "unchecked"}>
         {content}
       </BrownBox>
@@ -31,11 +29,6 @@ function GoalItem({ content, medId }) {
 export default GoalItem;
 
 const styles = StyleSheet.create({
-  container: {
-    backgroundColor: Colors.grey3,
-    padding: 10,
-    borderRadius: 10,
-    marginVertical: 2,
-  },
+  container: {},
   text: { fontFamily: "nnsq-regular", fontSize: 20 },
 });

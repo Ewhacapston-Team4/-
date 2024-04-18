@@ -1,6 +1,4 @@
-import { StyleSheet, View, Image, Animated } from "react-native";
-import { useRef, useEffect, useCallback } from "react";
-import { useFocusEffect } from "@react-navigation/native";
+import { StyleSheet, View } from "react-native";
 
 import Colors from "../../constants/Colors";
 import Title1 from "../../ui/Title1";
@@ -29,11 +27,6 @@ function Search({ navigation }) {
           onPress={navigateToScreen("SearchName")}
           editable={false}
         ></SearchBox>
-        {/* <SelectButton
-        title="이름으로 찾기"
-        imageUrl="../assets/images/image1.png"
-        onPress={navigateToScreen("SearchName")}
-      /> */}
       </View>
     </View>
   );

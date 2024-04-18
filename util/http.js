@@ -1,20 +1,18 @@
 import axios from "axios";
 
-const server = "http://116.32.121.121";
+const server = "http://116.32.121.121:80";
 
 export async function searchInfos(keyword) {
   try {
     console.log("Search Infos");
     const response = await axios.get(`${server}/api/pill/search/${keyword}`);
 
-    console.log("Response data:", response.data);
+    return response.data;
   } catch (error) {
     console.error("Error fetching data:", {
       response: error.response,
-      message: error.message,
-      request: error.request,
     });
-    //return null; // 에러 발생 시 null 반환
+    return null;
   }
 }
 
@@ -24,10 +22,7 @@ export async function searchProhibited(keyword) {
     const response = await axios.get(`${server}/api/pill/combine/${keyword}`);
 
     //console.log("Response data:", response.data);
-    if (
-      response.data !== null &&
-      !response.data.startsWith("Empty DataFrame Columns:")
-    ) {
+    if (response.data !== null && !response.data.startsWith("Cannot")) {
       return response.data;
     }
   } catch (error) {
@@ -51,7 +46,7 @@ export async function searchImage(imageUrl) {
     //formData.append("image", imageUrl);
 
     const response = await axios.post(
-      `${server}/api/pill/upload/tri`,
+      `${server}/api/pill/upload/hex`,
       formData,
       {
         headers: {

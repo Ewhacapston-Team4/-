@@ -22,6 +22,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#CAD6D566",
     overflow: "hidden",
     marginTop: 5,
+    paddingBottom: 10,
   },
   title: {
     fontFamily: "noto-sans-medium",

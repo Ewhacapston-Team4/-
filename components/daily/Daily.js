@@ -30,11 +30,12 @@ const styles = StyleSheet.create({
   goalsContainer: {
     paddingTop: 5,
     flexDirection: "row",
-    justifyContent: "space-between",
+    justifyContent: "center",
   },
   divider: {
     width: 1, // 세로선의 두께
+    marginHorizontal: 2,
     backgroundColor: Colors.grey3, // 세로선의 색상
-    height: "100%", // 부모 컨테이너에 맞춰 세로선의 높이를 조절
+    height: "95%", // 부모 컨테이너에 맞춰 세로선의 높이를 조절
   },
 });

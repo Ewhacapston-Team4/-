@@ -22,13 +22,15 @@ const styles = StyleSheet.create({
     padding: 10,
     borderRadius: 10,
     marginVertical: 2,
+    alignItems: "center",
   },
   container: {
     backgroundColor: Colors.point,
     padding: 10,
     borderRadius: 10,
     marginVertical: 2,
+    alignItems: "center",
   },
-  checkedText: { fontFamily: "nnsq-regular", fontSize: 20, color: "#adadad" },
-  text: { fontFamily: "nnsq-bold", fontSize: 20 },
+  checkedText: { fontFamily: "nnsq-regular", fontSize: 18, color: "#adadad" },
+  text: { fontFamily: "nnsq-bold", fontSize: 18 },
 });
