@@ -7,6 +7,7 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { Ionicons } from "@expo/vector-icons";
 import { useFonts } from "expo-font";
 import * as SplashScreen from "expo-splash-screen";
+import * as Notifications from "expo-notifications";
 
 import Colors from "./constants/Colors";
 import Home from "./screens/Home";
@@ -95,6 +96,13 @@ function StackNavigator2() {
   );
 }
 
+Notifications.setNotificationHandler({
+  handleNotification: async () => ({
+    shouldShowAlert: true,
+    shouldPlaySound: false,
+    shouldSetBadge: false,
+  }),
+});
 export default function App() {
   const [fontsLoaded] = useFonts({
     "nnsq-light": require("./assets/fonts/NanumSquareRoundL.ttf"),
@@ -194,7 +202,7 @@ export default function App() {
             />
             <BottomTab.Screen
               name="Schedule"
-              component={SearchResult}
+              component={AddResult}
               options={{
                 tabBarLabel: "점검",
                 tabBarIcon: ({ color, size }) => (

@@ -15,8 +15,6 @@ import Title1 from "../../ui/Title1";
 import Box from "../../ui/Box";
 import InfoBox from "../../ui/InfoBox";
 
-import { searchInfos, getUsers } from "../../util/http";
-
 function SearchResult({ route }) {
   const [modalVisible, setModalVisible] = useState(false);
   const [selectedItem, setSelectedItem] = useState(null);
@@ -35,7 +33,7 @@ function SearchResult({ route }) {
   } = route.params;
 
   return (
-    <View style={styles.container}>
+    <ScrollView style={styles.container}>
       <Title1>검색 결과</Title1>
       <View style={styles.contentContainer}>
         <Image style={styles.image} source={{ uri: imageUrl }} />
@@ -60,14 +58,12 @@ function SearchResult({ route }) {
                 <ScrollView>
                   <View style={[styles.divider, styles.soft]} />
                   {prohibited.map((item, index) => (
-                    <>
-                      <Pressable onPress={() => openModal(item)}>
-                        <Text key={index} style={styles.textStyle}>
-                          0{index + 1} {item.name}
-                        </Text>
-                        <View style={styles.divider} />
-                      </Pressable>
-                    </>
+                    <Pressable key={index} onPress={() => openModal(item)}>
+                      <Text style={styles.textStyle}>
+                        0{index + 1} {item.name}
+                      </Text>
+                      <View style={styles.divider} />
+                    </Pressable>
                   ))}
                 </ScrollView>
               ) : (
@@ -113,7 +109,7 @@ function SearchResult({ route }) {
           </View>
         </View>
       </Modal>
-    </View>
+    </ScrollView>
   );
 }
 
@@ -151,8 +147,8 @@ const styles = StyleSheet.create({
     marginTop: 15,
     marginBottom: 200,
     paddingTop: 0,
-    //maxHeight: "62%"
-    flex: 1,
+    maxHeight: "65%",
+    //flex: 1,
   },
   infoContainer: {
     // borderWidth: 2,

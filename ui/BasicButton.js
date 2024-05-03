@@ -2,9 +2,14 @@ import { Pressable, Text, View, StyleSheet } from "react-native";
 
 import Colors from "../constants/Colors";
 
-function BasicButton({ title, onPress }) {
+function BasicButton({ title, onPress, type, style }) {
   return (
-    <Pressable style={styles.container} onPress={onPress}>
+    <Pressable
+      style={
+        type !== "no" ? [styles.container, style] : [styles.noContainer, style]
+      }
+      onPress={onPress}
+    >
       <Text style={styles.title}>{title}</Text>
     </Pressable>
   );
@@ -30,5 +35,18 @@ const styles = StyleSheet.create({
     fontFamily: "nnsq-bold",
     color: Colors.darkblue,
     fontSize: 25,
+  },
+  noContainer: {
+    backgroundColor: "#dcdfe3",
+    borderRadius: 8,
+    justifyContent: "center",
+    alignItems: "center",
+    padding: 10,
+    marginVertical: 4,
+    elevation: 4,
+    shadowColor: "#000000",
+    shadowOffset: { width: 0, height: 0 },
+    shadowOpacity: 0.2,
+    shadowRadius: 3,
   },
 });

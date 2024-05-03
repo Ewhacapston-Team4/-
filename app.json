@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "ChemiKim",
-    "slug": "ChemiKim",
+    "slug": "chemikim",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -11,7 +11,9 @@
       "resizeMode": "contain",
       "backgroundColor": "#FDF9F2"
     },
-    "assetBundlePatterns": ["**/*"],
+    "assetBundlePatterns": [
+      "**/*"
+    ],
     "ios": {
       "supportsTablet": true
     },
@@ -19,7 +21,10 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "permissions": [
+        "android.permission.RECORD_AUDIO"
+      ]
     },
     "web": {
       "favicon": "./assets/favicon.png"
@@ -32,7 +37,22 @@
           "cameraPermission": "사진 찍어도 괜찮을까요?"
         }
       ],
-      ["expo-font"]
-    ]
+      [
+        "expo-font"
+      ],
+      [
+        "expo-notifications",
+        {
+          "icon": "./assets/images/icon.png",
+          "color": "#ffffff"
+        }
+      ]
+    ],
+    "extra": {
+      "eas": {
+        "projectId": "ba070d65-5cdb-4e70-bb84-5406b9462b10"
+      }
+    },
+    "owner": "danas59"
   }
 }

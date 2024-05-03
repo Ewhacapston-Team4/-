@@ -432,11 +432,11 @@ function ImagePreview({ route, navigation }) {
           textStyle={styles.textStyle}
           onFinish={onFinish}
         />
-        {imageUrl && type === "search" ? (
+        {/* {imageUrl && type === "search" ? (
           <Image style={styles.image} source={{ uri: imageUrl }} />
         ) : (
           <></>
-        )}
+        )} */}
       </View>
       {/* {name ? (
         <Box title={"인식 결과"}>
