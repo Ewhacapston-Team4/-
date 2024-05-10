@@ -20,6 +20,8 @@ import AddName from "./screens/Add/AddName";
 import AddResult from "./screens/Add/AddResult";
 import Add from "./screens/Add/Add";
 import ImagePreview from "./components/camera/ImagePreview";
+import LoginScreen from "./screens/LoginScreen";
+import SignupScreen from "./screens/SignupScreen";
 
 //context
 import DailyContextProvider from "./store/context/daily-context";
@@ -28,6 +30,117 @@ SplashScreen.preventAutoHideAsync();
 
 const Stack = createNativeStackNavigator();
 const BottomTab = createBottomTabNavigator();
+
+function AuthStack() {
+  return (
+    <Stack.Navigator
+      screenOptions={{
+        headerStyle: { backgroundColor: Colors.point },
+        headerTintColor: "white",
+        headerTitleAlign: "center",
+        headerTitleStyle: {
+          fontSize: 22,
+          fontFamily: "nnsq-bold",
+        },
+        contentStyle: { backgroundColor: Colors.bg1 },
+      }}
+    >
+      <Stack.Screen name="로그인" component={LoginScreen} />
+      <Stack.Screen name="회원가입" component={SignupScreen} />
+    </Stack.Navigator>
+  );
+}
+
+function AuthenticatedStack() {
+  return (
+    <BottomTab.Navigator
+      initialRouteName="Home"
+      screenOptions={{
+        headerShown: false,
+        tabBarActiveTintColor: Colors.main,
+        tabBarInactiveTintColor: Colors.grey4,
+        tabBarStyle: {
+          ...Platform.select({
+            ios: {
+              backgroundColor: "#ffffff",
+              height: "12%",
+              justifyContent: "center",
+              paddingTop: 10,
+              paddingHorizontal: 8,
+              paddingBottom: 23,
+            },
+            android: {
+              backgroundColor: "#ffffff",
+              height: "12%",
+              justifyContent: "center",
+              paddingVertical: 14,
+              paddingHorizontal: 8,
+              paddingBottom: 8,
+            },
+          }),
+        },
+        tabBarLabelStyle: {
+          fontSize: 15,
+          margin: 0,
+          padding: 0,
+          fontFamily: "noto-sans-medium",
+        },
+        tabBarIconStyle: {},
+      }}
+    >
+      <BottomTab.Screen
+        name="Home"
+        component={Home}
+        options={{
+          tabBarLabel: "홈",
+          tabBarIcon: ({ color, size }) => (
+            <Ionicons name="home" color={color} size={30} />
+          ),
+        }}
+      />
+      <BottomTab.Screen
+        name="Search"
+        component={StackNavigator1}
+        options={{
+          tabBarLabel: "검색",
+          tabBarIcon: ({ color, size }) => (
+            <Ionicons name="search" color={color} size={30} />
+          ),
+        }}
+      />
+      <BottomTab.Screen
+        name="Add"
+        component={StackNavigator2}
+        options={{
+          tabBarLabel: "",
+          tabBarIcon: ({ color, size }) => (
+            <Ionicons name="add-circle" color={color} size={60} />
+          ),
+        }}
+      />
+      <BottomTab.Screen
+        name="Schedule"
+        component={AddResult}
+        options={{
+          tabBarLabel: "점검",
+          tabBarIcon: ({ color, size }) => (
+            <Ionicons name="calendar-outline" color={color} size={30} />
+          ),
+        }}
+      />
+      <BottomTab.Screen
+        name="MyPage"
+        component={AddResult}
+        options={{
+          tabBarLabel: "마이페이지",
+          tabBarIcon: ({ color, size }) => (
+            <Ionicons name="person-circle-outline" color={color} size={34} />
+          ),
+        }}
+      />
+    </BottomTab.Navigator>
+  );
+}
 
 function StackNavigator1() {
   return (
@@ -135,96 +248,7 @@ export default function App() {
       <StatusBar style="dark" />
       <DailyContextProvider>
         <NavigationContainer>
-          <BottomTab.Navigator
-            initialRouteName="Home"
-            screenOptions={{
-              headerShown: false,
-              tabBarActiveTintColor: Colors.main,
-              tabBarInactiveTintColor: Colors.grey4,
-              tabBarStyle: {
-                ...Platform.select({
-                  ios: {
-                    backgroundColor: "#ffffff",
-                    height: "12%",
-                    justifyContent: "center",
-                    paddingTop: 10,
-                    paddingHorizontal: 8,
-                    paddingBottom: 23,
-                  },
-                  android: {
-                    backgroundColor: "#ffffff",
-                    height: "12%",
-                    justifyContent: "center",
-                    paddingVertical: 14,
-                    paddingHorizontal: 8,
-                    paddingBottom: 8,
-                  },
-                }),
-              },
-              tabBarLabelStyle: {
-                fontSize: 15,
-                margin: 0,
-                padding: 0,
-                fontFamily: "noto-sans-medium",
-              },
-              tabBarIconStyle: {},
-            }}
-          >
-            <BottomTab.Screen
-              name="Home"
-              component={Home}
-              options={{
-                tabBarLabel: "홈",
-                tabBarIcon: ({ color, size }) => (
-                  <Ionicons name="home" color={color} size={30} />
-                ),
-              }}
-            />
-            <BottomTab.Screen
-              name="Search"
-              component={StackNavigator1}
-              options={{
-                tabBarLabel: "검색",
-                tabBarIcon: ({ color, size }) => (
-                  <Ionicons name="search" color={color} size={30} />
-                ),
-              }}
-            />
-            <BottomTab.Screen
-              name="Add"
-              component={StackNavigator2}
-              options={{
-                tabBarLabel: "",
-                tabBarIcon: ({ color, size }) => (
-                  <Ionicons name="add-circle" color={color} size={60} />
-                ),
-              }}
-            />
-            <BottomTab.Screen
-              name="Schedule"
-              component={AddResult}
-              options={{
-                tabBarLabel: "점검",
-                tabBarIcon: ({ color, size }) => (
-                  <Ionicons name="calendar-outline" color={color} size={30} />
-                ),
-              }}
-            />
-            <BottomTab.Screen
-              name="MyPage"
-              component={AddResult}
-              options={{
-                tabBarLabel: "마이페이지",
-                tabBarIcon: ({ color, size }) => (
-                  <Ionicons
-                    name="person-circle-outline"
-                    color={color}
-                    size={34}
-                  />
-                ),
-              }}
-            />
-          </BottomTab.Navigator>
+          <AuthStack />
         </NavigationContainer>
       </DailyContextProvider>
     </>
