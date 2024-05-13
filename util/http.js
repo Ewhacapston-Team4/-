@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const server = "http://172.20.10.7:3000";
+const server = "http://116.32.121.121:80";
 
 export async function searchInfos(keyword) {
   try {
@@ -92,4 +92,8 @@ export function getUsers() {
     .catch((error) => {
       console.error("Error fetching data: ", error);
     });
+}
+
+export function addAlarms() {
+  axios.post(`${server}/api/alarm`);
 }

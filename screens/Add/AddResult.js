@@ -6,6 +6,10 @@ import {
   Alert,
   View,
   Platform,
+  Image,
+  TouchableOpacity,
+  TouchableWithoutFeedback,
+  Dimensions,
 } from "react-native";
 import { useState, useEffect, Fragment } from "react";
 import * as Notifications from "expo-notifications";
@@ -18,6 +22,7 @@ import ResultItem from "../../components/ResultItem";
 import BasicButton from "../../ui/BasicButton";
 import Title from "../../ui/Title";
 import TimePicker from "../../components/TimePicker";
+import RenderBoundingBoxes from "../../ui/RenderBoundingBoxes";
 
 let date;
 let temp_morning;
@@ -28,10 +33,24 @@ function AddResult({ route }) {
   const [date, setDate] = useState("");
   const [medList, setMedList] = useState([]);
   const [modalVisible, setModalVisible] = useState(true);
+  const [imageModalVisible, setImageModalVisible] = useState(false);
   const [timeList, setTimeList] = useState([]);
+  const [imageUrl, setImageUrl] = useState("");
+  const [vertices, setVertices] = useState([]);
+  const [width, setWidth] = useState();
+
+  const screenWidth = Dimensions.get("window").width;
 
   const openModal = () => {
     setModalVisible(true);
+  };
+
+  const handleImagePress = () => {
+    setImageModalVisible(true);
+  };
+
+  const handleModalClose = () => {
+    setImageModalVisible(false);
   };
 
   // useEffect(() => {
@@ -148,14 +167,23 @@ function AddResult({ route }) {
       },
     });
   }
-
   useEffect(() => {
     if (route.params) {
-      const { date: incomingDate, meds: incomingMeds } = route.params;
+      const {
+        date: incomingDate,
+        meds: incomingMeds,
+        imageUrl: incomingUrl,
+        vertices: incomingVertices,
+        imageWidth: incomingWidth,
+      } = route.params;
       //console.log(incomingDate, incomingMeds);
       setDate(incomingDate);
       setMedList(incomingMeds);
       saveTimeList(medList);
+      setImageUrl(incomingUrl);
+      setVertices(incomingVertices);
+      setWidth(incomingWidth);
+      //console.log(imageUrl);
       temp_morning = timeList.morning;
       temp_lunch = timeList.lunch;
       temp_dinner = timeList.dinner;
@@ -211,8 +239,16 @@ function AddResult({ route }) {
       temp_dinner = newTime;
     }
   };
+
+  let ratio = (screenWidth - 40) / width;
+
   return (
     <ScrollView style={styles.container}>
+      {/* <RenderBoundingBoxes verticesArray={vertices} ratio={ratio} /> */}
+      <TouchableOpacity onPress={handleImagePress}>
+        <Image style={styles.image} source={{ uri: imageUrl }} />
+      </TouchableOpacity>
+
       <Box title={"인식 결과"}>
         {date && <ResultItem title={"약 타신 날"} value={date} type={"date"} />}
         <Text style={styles.text}>타신 약</Text>
@@ -283,6 +319,33 @@ function AddResult({ route }) {
           </View>
         </View>
       </Modal>
+      <Modal
+        visible={imageModalVisible}
+        transparent={true}
+        onRequestClose={handleModalClose}
+      >
+        <TouchableWithoutFeedback onPress={handleModalClose}>
+          <View style={styles.imageModalBackground}>
+            <View style={styles.imageModalContent}>
+              <TouchableOpacity
+                onPress={handleModalClose}
+                style={styles.closeButton}
+              >
+                <Text>X</Text>
+              </TouchableOpacity>
+              {/* 모달 내용 추가 */}
+              <RenderBoundingBoxes
+                verticesArray={vertices}
+                ratio={screenWidth / width}
+              />
+              <Image
+                style={[styles.modalImage, { width: screenWidth, height: 300 }]}
+                source={{ uri: imageUrl }}
+              />
+            </View>
+          </View>
+        </TouchableWithoutFeedback>
+      </Modal>
     </ScrollView>
   );
 }
@@ -290,6 +353,7 @@ function AddResult({ route }) {
 export default AddResult;
 
 const styles = StyleSheet.create({
+  image: { width: "100%", height: 250, alignContent: "center" },
   container: {
     flex: 1,
     backgroundColor: Colors.bg2,
@@ -328,4 +392,21 @@ const styles = StyleSheet.create({
   flex_1: {
     flex: 1,
   },
+  imageModalBackground: {
+    flex: 1,
+    backgroundColor: "rgba(0, 0, 0, 0.5)",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  imageModalContent: {
+    backgroundColor: "white",
+    alignItems: "center",
+    elevation: 5,
+  },
+  closeButton: {
+    position: "absolute",
+    top: 10,
+    right: 10,
+  },
+  modalImage: {},
 });

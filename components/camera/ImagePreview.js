@@ -13,161 +13,13 @@ import { searchImage } from "../../util/http";
 import { searchNumber } from "../../util/http";
 import { searchInfos } from "../../util/http";
 import { searchProhibited } from "../../util/http";
+import { Dimensions } from "react-native";
 
-//API 호출
-
-//res.data.image[0]
-
-// let result = [
-//   {
-//     boundingPoly: { vertices: [Array] },
-//     inferConfidence: 0.9997,
-//     inferText: "2024-03-15",
-//     name: "date",
-//     subFields: [[Object], [Object]],
-//     type: "NORMAL",
-//     valueType: "ALL",
-//   },
-//   {
-//     boundingPoly: { vertices: [Array] },
-//     inferConfidence: 0.9996,
-//     inferText: "피디정2mg",
-//     name: "med 01",
-//     subFields: [[Object]],
-//     type: "NORMAL",
-//     valueType: "ALL",
-//   },
-//   {
-//     boundingPoly: { vertices: [Array] },
-//     inferConfidence: 0.9999,
-//     inferText: "알레락정5mg",
-//     name: "med 02",
-//     subFields: [[Object]],
-//     type: "NORMAL",
-//     valueType: "ALL",
-//   },
-//   {
-//     boundingPoly: { vertices: [Array] },
-//     inferConfidence: 0.9991,
-//     inferText: "가스모틴정5mg",
-//     name: "med 03",
-//     subFields: [[Object]],
-//     type: "NORMAL",
-//     valueType: "ALL",
-//   },
-//   {
-//     boundingPoly: { vertices: [Array] },
-//     inferConfidence: 0.9715,
-//     inferText: "1정씩2회4일분",
-//     name: "info 01",
-//     subFields: [[Object]],
-//     type: "NORMAL",
-//     valueType: "ALL",
-//   },
-//   {
-//     boundingPoly: { vertices: [Array] },
-//     inferConfidence: 0.9535,
-//     inferText: "1정씩2회4일분",
-//     name: "info 02",
-//     subFields: [[Object]],
-//     type: "NORMAL",
-//     valueType: "ALL",
-//   },
-//   {
-//     boundingPoly: { vertices: [Array] },
-//     inferConfidence: 0.9538,
-//     inferText: "1정씩2회4일분",
-//     name: "info 03",
-//     subFields: [[Object]],
-//     type: "NORMAL",
-//     valueType: "ALL",
-//   },
-//   {
-//     boundingPoly: { vertices: [Array] },
-//     inferConfidence: 0.9986,
-//     inferText: "삼아리도멕스크림",
-//     name: "med 04",
-//     subFields: [[Object]],
-//     type: "NORMAL",
-//     valueType: "ALL",
-//   },
-//   {
-//     boundingPoly: { vertices: [Array] },
-//     inferConfidence: 0,
-//     inferText: "",
-//     name: "med 05",
-//     type: "NORMAL",
-//     valueType: "ALL",
-//   },
-//   {
-//     boundingPoly: { vertices: [Array] },
-//     inferConfidence: 0,
-//     inferText: "",
-//     name: "med 06",
-//     type: "NORMAL",
-//     valueType: "ALL",
-//   },
-//   {
-//     boundingPoly: { vertices: [Array] },
-//     inferConfidence: 0,
-//     inferText: "",
-//     name: "med 07",
-//     type: "NORMAL",
-//     valueType: "ALL",
-//   },
-//   {
-//     boundingPoly: { vertices: [Array] },
-//     inferConfidence: 0,
-//     inferText: "",
-//     name: "med 08",
-//     type: "NORMAL",
-//     valueType: "ALL",
-//   },
-//   {
-//     boundingPoly: { vertices: [Array] },
-//     inferConfidence: 0.9999333,
-//     inferText: "의사 지시대로 사용",
-//     name: "info 04",
-//     subFields: [[Object], [Object], [Object]],
-//     type: "NORMAL",
-//     valueType: "ALL",
-//   },
-//   {
-//     boundingPoly: { vertices: [Array] },
-//     inferConfidence: 0,
-//     inferText: "",
-//     name: "info 05",
-//     type: "NORMAL",
-//     valueType: "ALL",
-//   },
-//   {
-//     boundingPoly: { vertices: [Array] },
-//     inferConfidence: 0,
-//     inferText: "",
-//     name: "info 06",
-//     type: "NORMAL",
-//     valueType: "ALL",
-//   },
-//   {
-//     boundingPoly: { vertices: [Array] },
-//     inferConfidence: 0,
-//     inferText: "",
-//     name: "info 07",
-//     type: "NORMAL",
-//     valueType: "ALL",
-//   },
-//   {
-//     boundingPoly: { vertices: [Array] },
-//     inferConfidence: 0,
-//     inferText: "",
-//     name: "info 08",
-//     type: "NORMAL",
-//     valueType: "ALL",
-//   },
-// ];
+const { width } = Dimensions.get("window");
 
 let parsingDate = null; // 'date'가 없을 경우 null로 초기화
 let medsList = [];
+let vertices = [];
 
 function processData(string) {
   const data = [];
@@ -267,8 +119,9 @@ function requestWithFile(imageUrl) {
 function ImagePreview({ route, navigation }) {
   //const [name, setName] = useState("");
   const [ID, setId] = useState(null);
+  const [vertices, setVertices] = useState([]);
 
-  function requestWithBase64(imageUrl) {
+  function requestWithBase64(base64, imageUrl) {
     axios
       .post(
         "https://4s376tsj0w.apigw.ntruss.com/custom/v1/29314/86a1154edeb470c6b86ef567a6534e7e753f2398af6355e9c99e35dd34a51f6e/infer", // APIGW Invoke URL
@@ -277,7 +130,7 @@ function ImagePreview({ route, navigation }) {
             {
               format: "jpeg", // file format
               name: "test.jpeg", // image name
-              data: imageUrl, // image base64 string(only need part of data). Example: base64String.split(',')[1]
+              data: base64, // image base64 string(only need part of data). Example: base64String.split(',')[1]
             },
           ],
           requestId: uuid.v4(), // unique string
@@ -286,13 +139,15 @@ function ImagePreview({ route, navigation }) {
         },
         {
           headers: {
-            "X-OCR-SECRET": "SW1NTHVlVUlSWXpQd2x2bVJzTWNJUk5pUHlLV09GWG0=", // Secret Key
+            "X-OCR-SECRET": "ZEFJUGRKTGNBVm1GYWdTVXFaa3RaeWNhWFBDeG9ITmU=", // Secret Key
           },
         }
       )
       .then((res) => {
         if (res.status === 200) {
           let result = res.data.images[0];
+          const imageWidth = result.convertedImageInfo.width;
+          console.log(imageWidth);
           result.fields.forEach((item) => {
             if (item.name === "date") {
               const pattern = /^\D+(.+)/;
@@ -316,12 +171,16 @@ function ImagePreview({ route, navigation }) {
                 name: item.inferText || null, // 'med' 항목의 inferText가 없다면 null로 설정
                 info: medInfo, // 매칭되는 'info' 항목의 inferText, 없다면 null
               });
-
-              navigation.navigate("AddResult", {
-                date: parsingDate,
-                meds: medsList,
-              });
             }
+            if (item.inferText !== "")
+              vertices.push(item.boundingPoly.vertices);
+          });
+          navigation.navigate("AddResult", {
+            date: parsingDate,
+            meds: medsList,
+            imageUrl: imageUrl,
+            vertices: vertices,
+            imageWidth: imageWidth,
           });
         }
       })
@@ -337,7 +196,7 @@ function ImagePreview({ route, navigation }) {
           encoding: FileSystem.EncodingType.Base64,
         });
         //requestWithFile(imageUrl);
-        requestWithBase64(base64Img);
+        requestWithBase64(base64Img, imageUrl);
         //console.log(base64Img);
       } catch (error) {
         console.error("Error reading image file:", error);

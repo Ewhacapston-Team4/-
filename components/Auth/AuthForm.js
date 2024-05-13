@@ -45,6 +45,13 @@ function AuthForm({ isLogin, onSubmit, credentialsInvalid }) {
       password: enteredPassword,
       confirmPassword: enteredConfirmPassword,
     });
+    // console.log(
+    //   "AuthForm submithandler:",
+    //   enteredName,
+    //   enteredEmail,
+    //   enteredId,
+    //   enteredPassword
+    // );
   }
 
   return (

@@ -10,7 +10,12 @@ import {
 import { Ionicons } from "@expo/vector-icons";
 import { useState } from "react";
 
+const BUTTON_WIDTH = 50;
+const VIEW_WIDTH = 50 * 3;
+
 function TimePicker({ time, onTimeChange }) {
+  const scrollX = React.useRef(new Animated.Value(1)).current;
+
   const [hour, setHour] = useState(() => {
     const [hourString] = time.split(":");
     return hourString;
@@ -55,17 +60,17 @@ function TimePicker({ time, onTimeChange }) {
   }
   return (
     <View style={styles.row}>
-      <Pressable onPress={minusHandler}>
+      {/* <Pressable onPress={minusHandler}>
         <Ionicons name="remove-circle" size={30} />
-      </Pressable>
+      </Pressable> */}
       <View style={styles.timeContainer}>
         <Text style={styles.text}>
           {hour} : {min}
         </Text>
       </View>
-      <Pressable onPress={addHandler}>
+      {/* <Pressable onPress={addHandler}>
         <Ionicons name="add-circle" size={30} />
-      </Pressable>
+      </Pressable> */}
     </View>
   );
 }

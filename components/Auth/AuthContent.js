@@ -25,7 +25,7 @@ function AuthContent({ isLogin, onAuthenticate }) {
   }
 
   function submitHandler(credentials) {
-    let { email, password, confirmPassword } = credentials;
+    let { id, name, email, password, confirmPassword } = credentials;
 
     email = email.trim();
     password = password.trim();
@@ -43,7 +43,9 @@ function AuthContent({ isLogin, onAuthenticate }) {
       });
       return;
     }
-    onAuthenticate({ email, password });
+
+    //onAuthenticate({ email, password });
+    onAuthenticate(id, name, email, password);
   }
 
   return (

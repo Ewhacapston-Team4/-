@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useContext } from "react";
 import { StatusBar } from "expo-status-bar";
 import { StyleSheet, Animated, Easing, Platform } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
@@ -25,6 +25,7 @@ import SignupScreen from "./screens/SignupScreen";
 
 //context
 import DailyContextProvider from "./store/context/daily-context";
+import AuthContextProvider, { AuthContext } from "./store/context/auth-context";
 
 SplashScreen.preventAutoHideAsync();
 
@@ -216,6 +217,16 @@ Notifications.setNotificationHandler({
     shouldSetBadge: false,
   }),
 });
+
+function Navigation() {
+  const authCtx = useContext(AuthContext);
+  return (
+    <NavigationContainer>
+      {!authCtx.isAuthenticated && <AuthStack />}
+      {authCtx.isAuthenticated && <AuthenticatedStack />}
+    </NavigationContainer>
+  );
+}
 export default function App() {
   const [fontsLoaded] = useFonts({
     "nnsq-light": require("./assets/fonts/NanumSquareRoundL.ttf"),
@@ -247,9 +258,9 @@ export default function App() {
     <>
       <StatusBar style="dark" />
       <DailyContextProvider>
-        <NavigationContainer>
-          <AuthStack />
-        </NavigationContainer>
+        <AuthContextProvider>
+          <Navigation />
+        </AuthContextProvider>
       </DailyContextProvider>
     </>
   );
