@@ -25,7 +25,8 @@ function AddPhoto({ navigation }) {
 
   return (
     <View style={styles.container}>
-      <Title1>찍어서 찾기</Title1>
+      <Title1>사진으로 등록</Title1>
+      <View style={styles.gap}></View>
       <ImagePicker onImagePicked={onImagePicked} />
     </View>
   );
@@ -40,5 +41,8 @@ const styles = StyleSheet.create({
     paddingTop: 100,
     paddingHorizontal: 20,
     paddingBottom: "4%",
+  },
+  gap: {
+    paddingVertical: 15,
   },
 });

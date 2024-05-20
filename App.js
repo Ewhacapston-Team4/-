@@ -22,6 +22,7 @@ import Add from "./screens/Add/Add";
 import ImagePreview from "./components/camera/ImagePreview";
 import LoginScreen from "./screens/LoginScreen";
 import SignupScreen from "./screens/SignupScreen";
+import Schedule from "./screens/Schedule";
 
 //context
 import DailyContextProvider from "./store/context/daily-context";
@@ -121,7 +122,7 @@ function AuthenticatedStack() {
       />
       <BottomTab.Screen
         name="Schedule"
-        component={AddResult}
+        component={Schedule}
         options={{
           tabBarLabel: "점검",
           tabBarIcon: ({ color, size }) => (

@@ -187,6 +187,8 @@ function AddResult({ route }) {
       temp_morning = timeList.morning;
       temp_lunch = timeList.lunch;
       temp_dinner = timeList.dinner;
+      console.log("times:", temp_morning, temp_lunch, temp_dinner);
+      // console.log(vertices);
     }
   }, [route.params]);
 
@@ -244,7 +246,12 @@ function AddResult({ route }) {
 
   return (
     <ScrollView style={styles.container}>
-      {/* <RenderBoundingBoxes verticesArray={vertices} ratio={ratio} /> */}
+      <RenderBoundingBoxes
+        style={styles.top}
+        verticesArray={vertices}
+        ratio={ratio}
+        gap={0}
+      />
       <TouchableOpacity onPress={handleImagePress}>
         <Image style={styles.image} source={{ uri: imageUrl }} />
       </TouchableOpacity>
@@ -335,8 +342,10 @@ function AddResult({ route }) {
               </TouchableOpacity>
               {/* 모달 내용 추가 */}
               <RenderBoundingBoxes
+                style={styles.top}
                 verticesArray={vertices}
                 ratio={screenWidth / width}
+                gap={-200}
               />
               <Image
                 style={[styles.modalImage, { width: screenWidth, height: 300 }]}
@@ -409,4 +418,7 @@ const styles = StyleSheet.create({
     right: 10,
   },
   modalImage: {},
+  top: {
+    zIndex: 9999,
+  },
 });

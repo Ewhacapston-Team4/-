@@ -8,8 +8,9 @@ export default Title1;
 
 const styles = StyleSheet.create({
   Text: {
-    fontFamily: "nnsq-bold",
-    fontSize: 30,
+    fontFamily: "nnsq-black",
+    fontSize: 40,
     paddingBottom: 20,
+    lineHeight: 48,
   },
 });

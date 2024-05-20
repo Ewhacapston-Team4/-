@@ -9,8 +9,12 @@ const images = {
 };
 
 function SelectButton({ title, imageKey, children, onPress }) {
+  const dynamicStyles = {
+    marginTop: title === "약봉투 찍어서 등록" ? 45 : 35,
+  };
+
   return (
-    <View style={styles.rootContainer}>
+    <View style={[styles.rootContainer, dynamicStyles]}>
       <Pressable style={styles.button} onPress={onPress}>
         <Image
           source={images[imageKey]}
@@ -31,8 +35,8 @@ const styles = StyleSheet.create({
     backgroundColor: "white",
     borderRadius: 10,
     width: "100%",
-    height: "43%",
-    elevation: 4,
+    height: "45%",
+    elevation: 6,
     shadowColor: "#000000",
     shadowOffset: { width: 0, height: 0 },
     shadowOpacity: 0.2,
@@ -43,11 +47,11 @@ const styles = StyleSheet.create({
   },
   button: { flex: 1 },
   image: {
-    height: "85%", // 부모 컨테이너에 맞게 너비 설정, // 적절한 높이 설정
+    height: "77%", // 부모 컨테이너에 맞게 너비 설정, // 적절한 높이 설정
     resizeMode: "contain", // 이미지가 잘리지 않도록 조정
   },
   image2: {
-    height: "100%", // 부모 컨테이너에 맞게 너비 설정, // 적절한 높이 설정
+    height: "88%", // 부모 컨테이너에 맞게 너비 설정, // 적절한 높이 설정
     width: "105%",
     resizeMode: "contain",
   },
@@ -57,7 +61,7 @@ const styles = StyleSheet.create({
     width: "100%", // 부모 컨테이너의 너비와 동일하게 설정
     alignItems: "center",
     justifyContent: "center",
-    height: "23%",
+    height: "25%",
     borderBottomLeftRadius: 10,
     borderBottomRightRadius: 10,
     backgroundColor: "#4ECDC4ef",
@@ -65,6 +69,6 @@ const styles = StyleSheet.create({
   title: {
     fontFamily: "nnsq-bold",
     color: Colors.darkblue,
-    fontSize: 25,
+    fontSize: 35,
   },
 });

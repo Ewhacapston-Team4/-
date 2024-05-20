@@ -74,48 +74,6 @@ function checkProhibited(users_list, meds_list) {
   return data;
 }
 
-function requestWithFile(imageUrl) {
-  // image file object. Example: fs.createReadStream('./example.png')
-  //const file = "../../assets/images/sampleImage.jpg"; //local relative
-  //const file = "/Users/danahshin/Desktop/cap/ChemiKim/assets/images/sampleImage.jpg"; //local ultimate
-  const file = imageUrl; //web url
-  const message = {
-    images: [
-      {
-        format: "jpg", // file format
-        name: "test.jpg", // file name
-      },
-    ],
-    requestId: uuid.v4(), // unique string
-    timestamp: Date.now(),
-    version: "V2",
-  };
-  const formData = new FormData();
-
-  formData.append("file", file);
-  formData.append("message", JSON.stringify(message));
-
-  axios
-    .post(
-      "", // APIGW Invoke URL
-      formData,
-      {
-        headers: {
-          "X-OCR-SECRET": "", // Secret Key
-        },
-      }
-    )
-    .then((res) => {
-      if (res.status === 200) {
-        console.log("requestWithFile response:", res.data);
-      }
-    })
-    .catch((e) => {
-      console.warn("requestWithFile error", e.response);
-      console.log(e.message);
-    });
-}
-
 function ImagePreview({ route, navigation }) {
   //const [name, setName] = useState("");
   const [ID, setId] = useState(null);
@@ -271,6 +229,7 @@ function ImagePreview({ route, navigation }) {
 
   //imageUrl to base64
   const handlePress = () => {
+    console.log(medsList);
     navigation.navigate("AddResult", {
       date: parsingDate,
       meds: medsList,

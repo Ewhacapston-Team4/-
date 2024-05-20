@@ -15,7 +15,7 @@ function Home() {
       }}
       style={styles.container}
     >
-      <Daily />
+      <Daily type={"home"} title={"오늘 드실 약"} />
       <PillList />
     </ScrollView>
   );

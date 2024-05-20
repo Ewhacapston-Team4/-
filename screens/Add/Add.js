@@ -18,10 +18,10 @@ function Add({ navigation }) {
   };
   return (
     <View style={styles.rootContainer}>
-      <Title1 style={styles.title}>드시는 약을 등록해보세요</Title1>
+      <Title1 style={styles.title}>드시는 약을{"\n"}등록해보세요</Title1>
       <View style={styles.container}>
         <SelectButton
-          title="약봉투 찍어서 등록"
+          title="약봉투 사진으로 등록"
           imageKey="icon1"
           onPress={navigateToScreen("AddPhoto")}
         />

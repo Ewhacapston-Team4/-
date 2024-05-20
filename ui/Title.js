@@ -1,7 +1,7 @@
 import { StyleSheet, Text } from "react-native";
 
 function Title({ children }) {
-  return <Text style={styles.Text}>{children}</Text>;
+  return <Text style={[styles.Text]}>{children}</Text>;
 }
 
 export default Title;

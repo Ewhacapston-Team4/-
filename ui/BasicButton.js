@@ -25,7 +25,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     padding: 10,
     marginVertical: 4,
-    elevation: 4,
+    elevation: 6,
     shadowColor: "#000000",
     shadowOffset: { width: 0, height: 0 },
     shadowOpacity: 0.2,
@@ -34,7 +34,7 @@ const styles = StyleSheet.create({
   title: {
     fontFamily: "nnsq-bold",
     color: Colors.darkblue,
-    fontSize: 25,
+    fontSize: 35,
   },
   noContainer: {
     backgroundColor: "#dcdfe3",
@@ -43,7 +43,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     padding: 10,
     marginVertical: 4,
-    elevation: 4,
+    elevation: 6,
     shadowColor: "#000000",
     shadowOffset: { width: 0, height: 0 },
     shadowOpacity: 0.2,

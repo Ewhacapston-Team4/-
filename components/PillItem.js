@@ -2,10 +2,15 @@ import { View, StyleSheet, Image, Pressable, Text } from "react-native";
 
 import Colors from "../constants/Colors";
 import { Platform } from "react-native";
+import TTS from "./TTS";
 
 function PillItem({ pillName, imageUrl }) {
+  function buttonHandler() {
+    TTS.speak(pillName);
+    console.log(pillName);
+  }
   return (
-    <Pressable style={styles.button}>
+    <Pressable onPress={buttonHandler} style={styles.button}>
       <View style={styles.view}>
         <Image source={imageUrl} style={styles.image} />
         <Text style={styles.text}>{pillName}</Text>
