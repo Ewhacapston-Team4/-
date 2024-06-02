@@ -1,8 +1,14 @@
-import { createContext, useState, useContext } from "react";
+import { createContext, useState } from "react";
 
-const DailyContext = createContext();
+export const DailyContext = createContext({
+  ids: [],
+  checkMed: (id) => {},
+  unCheckMed: (id) => {},
+});
 
-export const DailyContextProvider = ({ children }) => {
+function DailyContextProvider({ children }) {
+  const [checkedMeds, setCheckedMeds] = useState([]);
+
   const [dailyData, setDailyData] = useState({
     "2024-04-01": { morning: true, afternoon: false, evening: true },
     "2024-04-02": { morning: false, afternoon: true, evening: false },
@@ -64,43 +70,27 @@ export const DailyContextProvider = ({ children }) => {
     "2024-05-28": { morning: true, afternoon: false, evening: false },
   });
 
+  function checkMed(id) {
+    setCheckedMeds((currentIds) => [...currentIds, id]);
+  }
+
+  function unCheckMed(id) {
+    setCheckedMeds((currentIds) =>
+      currentIds.filter((medIds) => medIds !== id)
+    );
+  }
+
+  const value = {
+    ids: checkedMeds,
+    checkMed: checkMed,
+    unCheckMed: unCheckMed,
+    datas: dailyData,
+    setDailyData: setDailyData,
+  };
+
   return (
-    <DailyContext.Provider value={{ dailyData, setDailyData }}>
-      {children}
-    </DailyContext.Provider>
+    <DailyContext.Provider value={value}>{children}</DailyContext.Provider>
   );
-};
+}
 
-export const useDailyData = () => useContext(DailyContext);
-
-// export const DailyContext = createContext({
-//   ids: [],
-//   checkMed: (id) => {},
-//   unCheckMed: (id) => {},
-// });
-
-// function DailyContextProvider({ children }) {
-//   const [checkedMeds, setCheckedMeds] = useState([]);
-
-//   function checkMed(id) {
-//     setCheckedMeds((currentIds) => [...currentIds, id]);
-//   }
-
-//   function unCheckMed(id) {
-//     setCheckedMeds((currentIds) =>
-//       currentIds.filter((medIds) => medIds !== id)
-//     );
-//   }
-
-//   const value = {
-//     ids: checkedMeds,
-//     checkMed: checkMed,
-//     unCheckMed: unCheckMed,
-//   };
-
-//   return (
-//     <DailyContext.Provider value={value}>{children}</DailyContext.Provider>
-//   );
-// }
-
-// export default DailyContextProvider;
+export default DailyContextProvider;

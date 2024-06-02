@@ -27,7 +27,7 @@ function AddPhoto({ navigation }) {
     <View style={styles.container}>
       <Title1>사진으로 등록</Title1>
       <View style={styles.gap}></View>
-      <ImagePicker onImagePicked={onImagePicked} />
+      <ImagePicker onImagePicked={onImagePicked} navigation={navigation} />
     </View>
   );
 }

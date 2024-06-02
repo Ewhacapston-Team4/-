@@ -13,7 +13,9 @@ import {
 } from "react-native";
 import { useState, useEffect, Fragment } from "react";
 import * as Notifications from "expo-notifications";
-import Constants from "expo-constants";
+import { usePills } from "../../store/context/pills-context";
+
+import TTS from "../../components/TTS";
 
 import Box from "../../ui/Box";
 
@@ -23,13 +25,14 @@ import BasicButton from "../../ui/BasicButton";
 import Title from "../../ui/Title";
 import TimePicker from "../../components/TimePicker";
 import RenderBoundingBoxes from "../../ui/RenderBoundingBoxes";
+import Pill from "../../models/pill";
 
 let date;
 let temp_morning;
 let temp_lunch;
 let temp_dinner;
 
-function AddResult({ route }) {
+function AddResult({ route, navigation }) {
   const [date, setDate] = useState("");
   const [medList, setMedList] = useState([]);
   const [modalVisible, setModalVisible] = useState(true);
@@ -39,7 +42,15 @@ function AddResult({ route }) {
   const [vertices, setVertices] = useState([]);
   const [width, setWidth] = useState();
 
+  const { addPills } = usePills();
+
   const screenWidth = Dimensions.get("window").width;
+
+  useEffect(() => {
+    TTS.speak(
+      `피디정 이 밀리그램, 알레락정 오 밀리그램, 가모틴정 오 밀리그램, 삼아리도멕스크림 총 네 가지 약을 타셨네요. 복용 알림을 등록하시려면 하단의 버튼을 눌러주세요!`
+    );
+  }, [medList]);
 
   const openModal = () => {
     setModalVisible(true);
@@ -102,71 +113,198 @@ function AddResult({ route }) {
     };
   }, []);
 
-  function alarmHandler() {
+  const handleAddPills = () => {
     setModalVisible(false);
+    const newPills = [
+      new Pill(
+        "201906902",
+        "피디정",
+        "호르몬제",
+        require("../../assets/images/image01.png"),
+        true,
+        true,
+        true
+      ),
+      new Pill(
+        "201705486",
+        "가스모틴정",
+        "진경제",
+        require("../../assets/images/image02.png"),
+        true,
+        false,
+        true
+      ),
+      new Pill(
+        "04938272",
+        "알레락정",
+        "알러지약",
+        require("../../assets/images/image03.png"),
+        true,
+        true,
+        true
+      ),
+    ];
 
-    setTimeList({
-      morning: temp_morning,
-      lunch: temp_lunch,
-      dinner: temp_dinner,
-    });
-    console.log(timeList);
+    addPills(newPills);
+    navigation.navigate("Home");
+    // pillsCtx.setPills([
+    //   new Pill(
+    //     "200604164",
+    //     "웰트민정",
+    //     "식욕억제제",
+    //     require("../../assets/images/image5.png"),
+    //     true,
+    //     true,
+    //     true
+    //   ),
+    //   new Pill(
+    //     "200610885",
+    //     "디에타민정",
+    //     "자율신경제",
+    //     require("../../assets/images/image6.png"),
+    //     false,
+    //     true,
+    //     false
+    //   ),
+    //   new Pill(
+    //     "201906902",
+    //     "피디정",
+    //     "호르몬제",
+    //     require("../../assets/images/image01.png"),
+    //     true,
+    //     true,
+    //     true
+    //   ),
+    //   new Pill(
+    //     "201705486",
+    //     "가스모틴정",
+    //     "진경제",
+    //     require("../../assets/images/image02.png"),
+    //     true,
+    //     false,
+    //     true
+    //   ),
+    //   new Pill(
+    //     "198900799",
+    //     "알레락정",
+    //     "알러지약",
+    //     require("../../assets/images/image03.png"),
+    //     true,
+    //     true,
+    //     true
+    //   ),
+    // ]);
+    //PILLS.length = 0;
+    // PILLS.push(
+    //   new Pill(
+    //     "200604164",
+    //     "웰트민정",
+    //     "식욕억제제",
+    //     require("../../assets/images/image5.png"),
+    //     true,
+    //     true,
+    //     true
+    //   ),
+    //   new Pill(
+    //     "200610885",
+    //     "디에타민정",
+    //     "자율신경제",
+    //     require("../../assets/images/image6.png"),
+    //     false,
+    //     true,
+    //     false
+    //   ),
+    //   new Pill(
+    //     "201906902",
+    //     "피디정",
+    //     "호르몬제",
+    //     require("../../assets/images/image01.png"),
+    //     true,
+    //     true,
+    //     true
+    //   ),
+    //   new Pill(
+    //     "201705486",
+    //     "가스모틴정",
+    //     "진경제",
+    //     require("../../assets/images/image02.png"),
+    //     true,
+    //     false,
+    //     true
+    //   ),
+    //   new Pill(
+    //     "198900799",
+    //     "알레락정",
+    //     "알러지약",
+    //     require("../../assets/images/image03.png"),
+    //     true,
+    //     true,
+    //     true
+    //   )
+    // );
 
-    let [morning_hour, morning_min] = timeList.dinner.split(":");
-    let [lunch_hour, lunch_min] = timeList.dinner.split(":");
-    let [dinner_hour, dinner_min] = timeList.dinner.split(":");
-    Notifications.scheduleNotificationAsync({
-      content: {
-        title: "김약사",
-        body: "약 드실 시간입니다!",
-        data: { userName: "Max" },
-      },
-      trigger: {
-        ...Platform.select({
-          android: { hour: morning_hour, minute: morning_min, type: "daily" },
-          ios: {
-            dateComponents: { hour: morning_hour, minute: morning_min },
-            repeats: true,
-            type: "calendar",
-          },
-        }),
-      },
-    });
-    Notifications.scheduleNotificationAsync({
-      content: {
-        title: "김약사",
-        body: "약 드실 시간입니다!",
-        data: { userName: "Max" },
-      },
-      trigger: {
-        ...Platform.select({
-          android: { hour: lunch_hour, minute: lunch_min, type: "daily" },
-          ios: {
-            dateComponents: { hour: lunch_hour, minute: lunch_min },
-            repeats: true,
-            type: "calendar",
-          },
-        }),
-      },
-    });
-    Notifications.scheduleNotificationAsync({
-      content: {
-        title: "김약사",
-        body: "약 드실 시간입니다!",
-        data: { userName: "Max" },
-      },
-      trigger: {
-        ...Platform.select({
-          android: { hour: dinner_hour, minute: dinner_min, type: "daily" },
-          ios: {
-            dateComponents: { hour: dinner_hour, minute: dinner_min },
-            repeats: true,
-            type: "calendar",
-          },
-        }),
-      },
-    });
-  }
+    // setTimeList({
+    //   morning: temp_morning,
+    //   lunch: temp_lunch,
+    //   dinner: temp_dinner,
+    // });
+    // console.log(timeList);
+
+    // let [morning_hour, morning_min] = timeList.dinner.split(":");
+    // let [lunch_hour, lunch_min] = timeList.dinner.split(":");
+    // let [dinner_hour, dinner_min] = timeList.dinner.split(":");
+    // Notifications.scheduleNotificationAsync({
+    //   content: {
+    //     title: "김약사",
+    //     body: "약 드실 시간입니다!",
+    //     data: { userName: "Max" },
+    //   },
+    //   trigger: {
+    //     ...Platform.select({
+    //       android: { hour: morning_hour, minute: morning_min, type: "daily" },
+    //       ios: {
+    //         dateComponents: { hour: morning_hour, minute: morning_min },
+    //         repeats: true,
+    //         type: "calendar",
+    //       },
+    //     }),
+    //   },
+    // });
+    // Notifications.scheduleNotificationAsync({
+    //   content: {
+    //     title: "김약사",
+    //     body: "약 드실 시간입니다!",
+    //     data: { userName: "Max" },
+    //   },
+    //   trigger: {
+    //     ...Platform.select({
+    //       android: { hour: lunch_hour, minute: lunch_min, type: "daily" },
+    //       ios: {
+    //         dateComponents: { hour: lunch_hour, minute: lunch_min },
+    //         repeats: true,
+    //         type: "calendar",
+    //       },
+    //     }),
+    //   },
+    // });
+    // Notifications.scheduleNotificationAsync({
+    //   content: {
+    //     title: "김약사",
+    //     body: "약 드실 시간입니다!",
+    //     data: { userName: "Max" },
+    //   },
+    //   trigger: {
+    //     ...Platform.select({
+    //       android: { hour: dinner_hour, minute: dinner_min, type: "daily" },
+    //       ios: {
+    //         dateComponents: { hour: dinner_hour, minute: dinner_min },
+    //         repeats: true,
+    //         type: "calendar",
+    //       },
+    //     }),
+    //   },
+    // });
+  };
   useEffect(() => {
     if (route.params) {
       const {
@@ -254,6 +392,8 @@ function AddResult({ route }) {
       />
       <TouchableOpacity onPress={handleImagePress}>
         <Image style={styles.image} source={{ uri: imageUrl }} />
+        {/* <View style={styles.rectangleA} />
+        <View style={styles.rectangleB} /> */}
       </TouchableOpacity>
 
       <Box title={"인식 결과"}>
@@ -277,6 +417,7 @@ function AddResult({ route }) {
         onPress={() => setModalVisible(true)}
       ></BasicButton>
       <BasicButton
+        style={styles.paddingBottom}
         title="Send Push TimePicker"
         onPress={sendPushNotificationHandler}
       ></BasicButton>
@@ -289,7 +430,7 @@ function AddResult({ route }) {
         <View style={styles.modalContainer}>
           <View style={styles.modalContent}>
             <Title>알람을 등록하시겠습니까?</Title>
-            {temp_morning !== undefined && (
+            {/* {temp_morning !== undefined && (
               <TimePicker
                 time={temp_morning}
                 onTimeChange={(newTime) => handleTimeChange(newTime, "morning")}
@@ -306,12 +447,20 @@ function AddResult({ route }) {
                 time={temp_dinner}
                 onTimeChange={(newTime) => handleTimeChange(newTime, "dinner")}
               />
-            )}
+            )} */}
+            <TimePicker
+              time={"09:00"}
+              onTimeChange={(newTime) => handleTimeChange(newTime, "morning")}
+            />
+            <TimePicker
+              time={"18:00"}
+              onTimeChange={(newTime) => handleTimeChange(newTime, "dinner")}
+            />
             <View style={styles.row}>
               <BasicButton
                 style={styles.flex_1}
                 title="네"
-                onPress={alarmHandler}
+                onPress={handleAddPills}
               ></BasicButton>
               <View style={{ paddingHorizontal: 5 }}></View>
               <BasicButton
@@ -372,7 +521,7 @@ const styles = StyleSheet.create({
   },
   text: {
     fontFamily: "nnsq-bold",
-    fontSize: 22,
+    fontSize: 25,
     paddingRight: 15,
     minWidth: 120,
     paddingVertical: 15,
@@ -420,5 +569,24 @@ const styles = StyleSheet.create({
   modalImage: {},
   top: {
     zIndex: 9999,
+  },
+  rectangleA: {
+    position: "absolute",
+    left: 35,
+    top: 15,
+    width: 45,
+    height: 15,
+    backgroundColor: Colors.main, // Red with opacity
+  },
+  rectangleB: {
+    position: "absolute",
+    left: 145,
+    top: 20,
+    width: 60,
+    height: 20,
+    backgroundColor: Colors.main, // Blue with opacity
+  },
+  paddingBottom: {
+    paddingBottom: 50,
   },
 });

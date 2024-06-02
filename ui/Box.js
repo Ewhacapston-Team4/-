@@ -10,8 +10,8 @@ function Box({ title, children, style, type }) {
         style,
       ]}
     >
-      <View style={type === "schedule" ? styles.titleContainer : null}>
-        {type === "notitle" ? <></> : <Title>{title}</Title>}
+      <View style={type === "schedule" ? [styles.titleContainer] : null}>
+        {type === "notitle" ? <></> : <Title type={type}>{title}</Title>}
       </View>
       {children}
     </View>
@@ -40,8 +40,9 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     width: "100%",
     height: "200px,",
-    paddingVertical: 30,
-    elevation: 4,
+    paddingTop: 20,
+    paddingBottom: 30,
+    elevation: 5,
     marginVertical: 15,
     shadowColor: "#000000",
     shadowOffset: { width: 0, height: 0 },

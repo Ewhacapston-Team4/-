@@ -27,9 +27,9 @@ function Daily({ type, title }) {
         <Box title={newTitle} type={type}>
           <View style={styles.goalsContainer}>
             <Goals time={"아침"} />
-            <View style={styles.divider} />
+            <View style={styles.divider_gap} />
             <Goals time={"점심"} />
-            <View style={styles.divider} />
+            <View style={styles.divider_gap} />
             <Goals time={"저녁"} />
           </View>
         </Box>
@@ -53,6 +53,12 @@ const styles = StyleSheet.create({
   divider: {
     width: 1, // 세로선의 두께
     marginHorizontal: 2,
+    backgroundColor: Colors.grey3, // 세로선의 색상
+    height: "95%", // 부모 컨테이너에 맞춰 세로선의 높이를 조절
+  },
+  divider_gap: {
+    width: 1, // 세로선의 두께
+    marginHorizontal: 12,
     backgroundColor: Colors.grey3, // 세로선의 색상
     height: "95%", // 부모 컨테이너에 맞춰 세로선의 높이를 조절
   },

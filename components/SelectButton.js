@@ -47,7 +47,8 @@ const styles = StyleSheet.create({
   },
   button: { flex: 1 },
   image: {
-    height: "77%", // 부모 컨테이너에 맞게 너비 설정, // 적절한 높이 설정
+    height: "80%", // 부모 컨테이너에 맞게 너비 설정, // 적절한 높이 설정
+    width: "112%",
     resizeMode: "contain", // 이미지가 잘리지 않도록 조정
   },
   image2: {
@@ -69,6 +70,6 @@ const styles = StyleSheet.create({
   title: {
     fontFamily: "nnsq-bold",
     color: Colors.darkblue,
-    fontSize: 35,
+    fontSize: 30,
   },
 });

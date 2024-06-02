@@ -1,68 +1,48 @@
-import { StyleSheet, View, Modal, Text, Pressable, Image } from "react-native";
-import { useState } from "react";
+import { StyleSheet, View, Modal, Pressable, Text, Image } from "react-native";
+import { useEffect, useState } from "react";
 
 import Colors from "../../constants/Colors";
-import { usePills } from "../../store/context/pills-context";
-
 import Title1 from "../../ui/Title1";
-import SelectButton from "../../components/SelectButton";
 import SearchBox from "../../components/SearchBox";
+import SelectButton from "../../components/SelectButton";
 import BasicButton from "../../ui/BasicButton";
-import TTS from "../../components/TTS";
 
 function Search({ navigation }) {
   const [modalVisible, setModalVisible] = useState(false);
   const [seletedIcon, setSeletedIcon] = useState(null);
   const [pressedIcon, setPressedIcon] = useState(null);
 
-  const { setPillType } = usePills();
-
   const openModal = () => {
     setModalVisible(true);
-    TTS.speak("어떤 형태의 약인가요?");
   };
   const closeModal = () => {
     setModalVisible(false);
+  };
+
+  const selectHandler = () => {
+    //closeModal();
+    navigateToScreen("SearchPhoto");
   };
 
   const searchPhotoHandler = () => {
     openModal();
   };
 
-  const navigateToScreen = (screenName) => {
+  const navigateToScreen = (screenName, params) => {
     return () => {
-      navigation.navigate(screenName);
+      navigation.navigate(screenName, params);
     };
   };
+  // const navigateToScreenNew = (screenName, type) => {
+  //   return () => {
+  //     navigation.navigate(screenName, type);
+  //   };
+  // };
 
   const handlePress = (type) => {
     setPressedIcon(type);
     setSeletedIcon(type);
-
-    switch (type) {
-      case "pill1":
-        sound = "원형";
-        break;
-      case "pill2":
-        sound = "타원형";
-        break;
-      case "pill3":
-        sound = "정방형";
-        break;
-      case "pill4":
-        sound = "오각형, 육각형, 팔각형";
-        break;
-      case "pill5":
-        sound = "삼각형, 사각형, 마름모";
-        break;
-      case "pill6":
-        sound = "기타";
-        break;
-      default:
-        sound = "PHO";
-        break;
-    }
-    TTS.speak(sound);
+    //console.log(type);
   };
   const handlePressOut = () => {
     setPressedIcon(null);
@@ -226,9 +206,8 @@ function Search({ navigation }) {
             <BasicButton
               style={styles.position}
               onPress={() => {
-                setPillType(seletedIcon);
                 closeModal();
-                navigation.navigate("SearchPhoto");
+                navigation.navigate("SearchPhoto", { pill: seletedIcon });
               }}
               title={"선택"}
             ></BasicButton>
@@ -249,22 +228,24 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     paddingBottom: "4%",
   },
-  title: {
-    position: "absolute",
-    top: 100,
-    left: 20,
-    right: 20,
-  },
   container: { flex: 1, justifyContent: "center" },
   gap: {
     paddingVertical: 10,
   },
+  title: {
+    position: "absolute", // 절대 위치로 설정
+    top: 100, // 상단으로부터 20의 간격
+    left: 20, // 왼쪽으로부터 20의 간격
+    right: 20, // 오른쪽으로부터 20의 간격, 컨테이너 내에서 가운데 정렬을 위해
+  },
   modalContainer: {
     flex: 1,
+    //   //height: "300px",
     justifyContent: "flex-end", // 화면 하단 정렬
     backgroundColor: "rgba(0, 0, 0, 0.5)", // 반투명한 배경색
   },
   modalContent: {
+    // //height: "300px",
     backgroundColor: "white",
     padding: 20,
     borderRadius: 10,
@@ -278,6 +259,7 @@ const styles = StyleSheet.create({
     paddingTop: 15,
     paddingBottom: 20,
   },
+
   iconsContainer: {
     flexDirection: "row",
     flexWrap: "wrap",
@@ -285,17 +267,12 @@ const styles = StyleSheet.create({
     height: "70%",
     paddingBottom: 10,
   },
-  seleted: {
-    width: "30%", // 필요에 따라 조정
-    height: "48%", // 필요에 따라 조정
-    borderWidth: 2,
-    borderRadius: 10,
-    borderColor: Colors.point,
-    backgroundColor: "rgba(118, 230, 245, 0.3)",
-    justifyContent: "center", // 이미지가 컨테이너 중앙에 위치하게 설정
-    alignItems: "center", // 이미지가 컨테이너 중앙에 위치하게 설정
-    paddingHorizontal: 10,
-    margin: 2,
+  image: {
+    // // 고정 높이 및 비율 조정
+    // height: "30%", // 전체 높이의 60%
+    width: "100%",
+    height: "100%", // 부모 너비와 동일하게 설정
+    resizeMode: "contain",
   },
   iconContainer: {
     width: "30%", // 필요에 따라 조정
@@ -314,10 +291,23 @@ const styles = StyleSheet.create({
     fontFamily: "noto-sans-bold",
     fontSize: 20,
     margin: -13,
+    //paddingBottom: 10,
   },
-  image: {
-    width: "100%",
-    height: "100%", // 부모 너비와 동일하게 설정
-    resizeMode: "contain",
+  fullWidth: {
+    // width: "100%",
+    // padding: 10,
+  },
+  seleted: {
+    width: "30%", // 필요에 따라 조정
+    height: "48%", // 필요에 따라 조정
+    borderWidth: 2,
+    borderRadius: 10,
+    borderColor: Colors.point,
+    backgroundColor: "rgba(118, 230, 245, 0.3)",
+    justifyContent: "center", // 이미지가 컨테이너 중앙에 위치하게 설정
+    alignItems: "center", // 이미지가 컨테이너 중앙에 위치하게 설정
+    //paddingTop: 13,
+    paddingHorizontal: 10,
+    margin: 2,
   },
 });

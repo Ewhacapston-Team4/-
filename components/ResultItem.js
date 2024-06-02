@@ -1,6 +1,7 @@
 import { StyleSheet, View, Text } from "react-native";
 
 import Colors from "../constants/Colors";
+import TTS from "./TTS";
 
 function ResultItem({ title, value, info, type }) {
   let content;
@@ -53,12 +54,12 @@ const styles = StyleSheet.create({
   },
   titleStyle: {
     fontFamily: "nnsq-bold",
-    fontSize: 22,
+    fontSize: 25,
     paddingRight: 15,
   },
   valueStyle: {
     fontFamily: "nnsq-regular",
-    fontSize: 20,
+    fontSize: 25,
     borderWidth: 2,
     borderRadius: 8,
     borderColor: Colors.grey1,
@@ -70,7 +71,7 @@ const styles = StyleSheet.create({
   },
   infoStyle: {
     fontFamily: "nnsq-regular",
-    fontSize: 20,
+    fontSize: 25,
     overflow: "hidden",
     padding: 5,
     textAlign: "center",
@@ -78,7 +79,7 @@ const styles = StyleSheet.create({
   },
   index: {
     fontFamily: "nnsq-bold",
-    fontSize: 15,
+    fontSize: 20,
     paddingRight: 15,
   },
   newContainer: {},

@@ -11,14 +11,14 @@ const BoundingBox = ({ vertices, ratio, gap }) => {
   // console.log(minX, minY, maxX, maxY);
 
   // bounding box의 너비와 높이를 계산합니다.
-  const width = maxX - minX;
-  const height = maxY - minY;
+  const width = maxX - minX + 3;
+  const height = maxY - minY + 2;
 
   return (
     <View
       style={[
         styles.boundingBox,
-        { left: minX, top: minY, width: width, height: height },
+        { left: minX - 2, top: minY - 1, width: width, height: height },
       ]}
     />
   );

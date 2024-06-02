@@ -23,10 +23,13 @@ import ImagePreview from "./components/camera/ImagePreview";
 import LoginScreen from "./screens/LoginScreen";
 import SignupScreen from "./screens/SignupScreen";
 import Schedule from "./screens/Schedule";
+import ImageEdit from "./components/camera/ImageEdit";
 
 //context
 import DailyContextProvider from "./store/context/daily-context";
+import PillsContextProvider from "./datas/pills-list";
 import AuthContextProvider, { AuthContext } from "./store/context/auth-context";
+import { PillsProvider } from "./store/context/pills-context";
 
 SplashScreen.preventAutoHideAsync();
 
@@ -73,7 +76,7 @@ function AuthenticatedStack() {
             },
             android: {
               backgroundColor: "#ffffff",
-              height: "12%",
+              height: "13%",
               justifyContent: "center",
               paddingVertical: 14,
               paddingHorizontal: 8,
@@ -173,7 +176,15 @@ function StackNavigator3() {
       }}
     >
       <Stack.Screen name="main" component={AddPhoto} />
-      <Stack.Screen name="ImagePreview" component={ImagePreview} />
+      <Stack.Screen
+        name="ImagePreview"
+        component={ImagePreview}
+        options={{
+          tabBarStyle: { display: "none" },
+        }}
+      />
+      <Stack.Screen name="Home" component={Home} />
+      <Stack.Screen name="ImageEdit" component={ImageEdit} />
       <Stack.Screen name="AddResult" component={AddResult} />
     </Stack.Navigator>
   );
@@ -260,7 +271,9 @@ export default function App() {
       <StatusBar style="dark" />
       <DailyContextProvider>
         <AuthContextProvider>
-          <Navigation />
+          <PillsProvider>
+            <Navigation />
+          </PillsProvider>
         </AuthContextProvider>
       </DailyContextProvider>
     </>

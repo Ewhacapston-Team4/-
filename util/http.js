@@ -35,7 +35,35 @@ export async function searchProhibited(keyword) {
   }
 }
 
-export async function searchImage(imageUrl) {
+export async function searchImage(imageUrl, type) {
+  console.log(type);
+
+  let apiUrl;
+
+  switch (type) {
+    case "pill1":
+      apiUrl = "cir";
+      break;
+    case "pill2":
+      apiUrl = "ell";
+      break;
+    case "pill3":
+      apiUrl = "obl";
+      break;
+    case "pill4":
+      apiUrl = "PHO";
+      break;
+    case "pill5":
+      apiUrl = "TRR";
+      break;
+    case "pill6":
+      apiUrl = "etc";
+      break;
+    default:
+      apiUrl = "PHO";
+      break;
+  }
+
   try {
     const formData = new FormData();
     formData.append("image", {
@@ -46,7 +74,7 @@ export async function searchImage(imageUrl) {
     //formData.append("image", imageUrl);
 
     const response = await axios.post(
-      `${server}/api/pill/upload/hex`,
+      `${server}/api/pill/upload/${apiUrl}`,
       formData,
       {
         headers: {

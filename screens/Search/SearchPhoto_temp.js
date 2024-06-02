@@ -1,9 +1,8 @@
-import { View, StyleSheet } from "react-native";
+import { View, StyleSheet, Button } from "react-native";
 import { useState, useEffect } from "react";
 
-import Colors from "../../constants/Colors";
-
 import Title1 from "../../ui/Title1";
+import Colors from "../../constants/Colors";
 import ImagePicker from "../../components/camera/ImagePicker";
 
 function SearchPhoto({ route, navigation }) {
@@ -15,9 +14,11 @@ function SearchPhoto({ route, navigation }) {
 
   useEffect(() => {
     if (pickedMedImage) {
+      // navigation.navigate 함수에서 매개변수 전달을 객체 형태로 수정
       navigation.navigate("ImagePreview", {
         imageUrl: pickedMedImage,
         type: "search",
+        //pillType: route.params.pill,
       });
     }
   }, [pickedMedImage, navigation]);

@@ -34,7 +34,7 @@ const styles = StyleSheet.create({
   title: {
     fontFamily: "nnsq-bold",
     color: Colors.darkblue,
-    fontSize: 35,
+    fontSize: 30,
   },
   noContainer: {
     backgroundColor: "#dcdfe3",

@@ -26,8 +26,9 @@ const styles = StyleSheet.create({
   },
   title: {
     fontFamily: "noto-sans-medium",
-    fontSize: 20,
-    paddingVertical: 10,
+    fontSize: 25,
+    //paddingVertical: 10,
+    marginBottom: -10,
     paddingLeft: 20,
   },
 });

@@ -1,13 +1,13 @@
-import { StyleSheet, View, Button } from "react-native";
-import { useState, useEffect } from "react";
+import { View, StyleSheet, Image, Text, Button } from "react-native";
+import { useEffect, useState } from "react";
 import axios from "axios";
 import uuid from "react-native-uuid";
+import * as FileSystem from "expo-file-system";
 
 import Colors from "../../constants/Colors";
 import TextAnimator from "../TextAnimator";
 
 import { PILLS } from "../../datas/pills-list";
-import { usePills } from "../../store/context/pills-context";
 
 import { searchImage } from "../../util/http";
 import { searchNumber } from "../../util/http";
@@ -75,10 +75,9 @@ function checkProhibited(users_list, meds_list) {
 }
 
 function ImagePreview({ route, navigation }) {
+  //const [name, setName] = useState("");
   const [ID, setId] = useState(null);
   const [vertices, setVertices] = useState([]);
-
-  const { getPillType } = usePills();
 
   function requestWithBase64(base64, imageUrl) {
     axios
@@ -227,14 +226,20 @@ function ImagePreview({ route, navigation }) {
     if (type === "add") {
       ocrAPICall();
     } else if (type === "search") {
-      let pill = getPillType();
-      console.log(pill);
-      imgAPICall(pill);
+      imgAPICall(pillType);
+      navigation.navigate("SearchResult", {
+        name: name,
+        id: id,
+        imageUrl: imageUrl,
+        infos: infos_result,
+        prohibited: prohibited_result,
+      });
     }
   }, [imageUrl]);
 
-  const { imageUrl: imageUrl, type: type } = route.params;
+  const { imageUrl: imageUrl, type: type, pillType: pillType } = route.params;
 
+  //imageUrl to base64
   const handlePress = () => {
     console.log(medsList);
     navigation.navigate("AddResult", {
@@ -258,7 +263,19 @@ function ImagePreview({ route, navigation }) {
           textStyle={styles.textStyle}
           onFinish={onFinish}
         />
+        {/* {imageUrl && type === "search" ? (
+          <Image style={styles.image} source={{ uri: imageUrl }} />
+        ) : (
+          <></>
+        )} */}
       </View>
+      {/* {name ? (
+        <Box title={"인식 결과"}>
+          <Text style={styles.result}>{name}</Text>
+        </Box>
+      ) : (
+        button
+      )} */}
     </View>
   );
 }
@@ -281,6 +298,23 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     backgroundColor: Colors.bg3,
+  },
+  image: {
+    width: "100%",
+    height: "100%",
+  },
+  result: {
+    fontFamily: "nnsq-regular",
+    fontSize: 20,
+    borderWidth: 2,
+    borderRadius: 8,
+    borderColor: Colors.grey1,
+    backgroundColor: "#CAD6D566",
+    overflow: "hidden",
+    padding: 5,
+    textAlign: "center",
+    textAlignVertical: "center",
+    marginTop: 10,
   },
   textStyle: { fontFamily: "nnsq-bold", fontSize: 28, color: "white" },
 });
