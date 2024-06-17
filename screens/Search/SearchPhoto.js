@@ -8,9 +8,22 @@ import ImagePicker from "../../components/camera/ImagePicker";
 
 function SearchPhoto({ route, navigation }) {
   const [pickedMedImage, setPickedMedImage] = useState(null);
+  const [mode, setMode] = useState("");
 
   function onImagePicked(imageUrl) {
     setPickedMedImage(imageUrl);
+  }
+  function onModePicked(mode) {
+    setMode(mode);
+  }
+  let title;
+
+  if (!mode) {
+    title = "사진으로 찾기";
+  } else if (mode === "camera") {
+    title = "사진을 촬영해주세요";
+  } else {
+    title = "사진을 골라주세요";
   }
 
   useEffect(() => {
@@ -24,8 +37,8 @@ function SearchPhoto({ route, navigation }) {
 
   return (
     <View style={styles.container}>
-      <Title1>사진으로 찾기</Title1>
-      <ImagePicker onImagePicked={onImagePicked} />
+      <Title1>{title}</Title1>
+      <ImagePicker onImagePicked={onImagePicked} onModePicked={onModePicked} />
     </View>
   );
 }

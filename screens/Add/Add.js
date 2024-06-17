@@ -8,12 +8,17 @@ import ImagePicker from "../../components/camera/ImagePicker";
 import ImagePreview from "../../components/camera/ImagePreview";
 import BasicButton from "../../ui/BasicButton";
 
+import { usePills } from "../../store/context/pills-context";
+
 const Stack = createNativeStackNavigator();
 
 function Add({ navigation }) {
+  const { setPhotoType } = usePills();
+
   const navigateToScreen = (screenName) => {
     return () => {
       navigation.navigate(screenName);
+      setPhotoType("add");
     };
   };
   return (

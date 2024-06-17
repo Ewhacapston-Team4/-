@@ -1,10 +1,13 @@
 import React, { createContext, useState, useContext } from "react";
 import Pill from "../../models/pill";
+import { CameraType } from "expo-image-picker";
+import { get } from "react-native/Libraries/TurboModule/TurboModuleRegistry";
 
 const PillsContext = createContext();
 
 export const PillsProvider = ({ children }) => {
   const [type, setType] = useState("");
+  const [cameraType, setCameraType] = useState("");
   const [pills, setPills] = useState([
     new Pill(
       "198900799",
@@ -16,9 +19,9 @@ export const PillsProvider = ({ children }) => {
       true
     ),
     new Pill(
-      "200604164",
-      "웰트민정",
-      "식욕억제제",
+      "200610885",
+      "디에타민정",
+      "자율신경제",
       require("../../assets/images/image5.png"),
       true,
       true,
@@ -36,10 +39,23 @@ export const PillsProvider = ({ children }) => {
   const getPillType = () => {
     return type;
   };
+  const setPhotoType = (type) => {
+    setCameraType(type);
+  };
+  const getPhotoType = () => {
+    return cameraType;
+  };
 
   return (
     <PillsContext.Provider
-      value={{ pills, addPills, setPillType, getPillType }}
+      value={{
+        pills,
+        addPills,
+        setPillType,
+        getPillType,
+        setPhotoType,
+        getPhotoType,
+      }}
     >
       {children}
     </PillsContext.Provider>

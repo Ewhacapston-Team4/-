@@ -20,11 +20,11 @@ function SearchResult({ route }) {
   const [modalVisible, setModalVisible] = useState(false);
   const [selectedItem, setSelectedItem] = useState(null);
 
-  useEffect(() => {
-    TTS.speak(
-      `근이완제 마이론정입니다! 현재 복약 중인 가베스캡슐, 디에타민정과 병용하면 안되니 주의하세요!`
-    );
-  }, []);
+  // useEffect(() => {
+  //   TTS.speak(
+  //     `소염제 에어탈정입니다! 현재 복약 중인 가베스캡슐, 웰트민정과 병용하면 안되니 주의하세요!`
+  //   );
+  // }, []);
 
   const openModal = (item) => {
     setSelectedItem(item);
@@ -44,28 +44,25 @@ function SearchResult({ route }) {
       <Title1>검색 결과</Title1>
       <View style={styles.contentContainer}>
         <Image style={styles.image} source={{ uri: imageUrl }} />
+
         <Box style={styles.Box} type={"notitle"}>
           <View style={styles.textContainer}>
-            {/* <Text style={styles.result}>{name}</Text> */}
-            <Text style={styles.result}>마이론정 20mg</Text>
+            <Text style={styles.result}>{name}</Text>
           </View>
           <View style={styles.infoContainer}>
-            {/* {infos.length !== 0 ? ( */}
-            <InfoBox title={"약품 정보"}>
-              {/* {infos.map((item, index) => (
+            {infos.length !== 0 ? (
+              <InfoBox title={"약품 정보"}>
+                {infos.map((item, index) => (
                   <Text key={index} style={styles.textStyle}>
                     ・ {item}
                   </Text>
-                ))} */}
-              <Text style={styles.textStyle}>・ 근이완제</Text>
-              <Text style={styles.textStyle}>・ 노인 주의 약물 아님</Text>
-              <Text style={styles.textStyle}>・ 용량 주의 사항 없음</Text>
-              <Text style={styles.textStyle}>・ 투여 기간 주의 사항 없음</Text>
-            </InfoBox>
-            {/* ) : (<></>
-            )} */}
+                ))}
+              </InfoBox>
+            ) : (
+              <></>
+            )}
             <InfoBox title={"병용 금기 약물"}>
-              {/* {prohibited.length !== 0 ? (
+              {prohibited.length !== 0 ? (
                 <ScrollView>
                   <View style={[styles.divider, styles.soft]} />
                   {prohibited.map((item, index) => (
@@ -86,13 +83,7 @@ function SearchResult({ route }) {
                   />
                   <Text style={styles.text}>병용 금기 약물이 없습니다!</Text>
                 </View>
-              )} */}
-              <ScrollView>
-                <View style={[styles.divider, styles.soft]} />
-                <Text style={styles.textStyle}>01 가베스캡슐</Text>
-                <View style={styles.divider} />
-                <Text style={styles.textStyle}>02 웰트민정</Text>
-              </ScrollView>
+              )}
             </InfoBox>
           </View>
         </Box>

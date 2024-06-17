@@ -1,13 +1,13 @@
 import React from "react";
 import { View, StyleSheet } from "react-native";
 
-const BoundingBox = ({ vertices, ratio, gap }) => {
+const BoundingBox = ({ vertices }) => {
   // console.log(vertices);
   // 좌표를 기반으로 bounding box를 계산합니다.
-  const minX = Math.min(...vertices.map((vertex) => vertex.x)) * ratio + gap;
-  const minY = Math.min(...vertices.map((vertex) => vertex.y)) * ratio - 8;
-  const maxX = Math.max(...vertices.map((vertex) => vertex.x)) * ratio + gap;
-  const maxY = Math.max(...vertices.map((vertex) => vertex.y)) * ratio - 8;
+  const minX = Math.min(...vertices.map((vertex) => vertex.x));
+  const minY = Math.min(...vertices.map((vertex) => vertex.y));
+  const maxX = Math.max(...vertices.map((vertex) => vertex.x));
+  const maxY = Math.max(...vertices.map((vertex) => vertex.y));
   // console.log(minX, minY, maxX, maxY);
 
   // bounding box의 너비와 높이를 계산합니다.
@@ -18,7 +18,7 @@ const BoundingBox = ({ vertices, ratio, gap }) => {
     <View
       style={[
         styles.boundingBox,
-        { left: minX - 2, top: minY - 1, width: width, height: height },
+        { left: minX, top: minY, width: width, height: height },
       ]}
     />
   );
@@ -27,8 +27,7 @@ const BoundingBox = ({ vertices, ratio, gap }) => {
 const styles = StyleSheet.create({
   boundingBox: {
     position: "absolute",
-    borderColor: "red",
-    borderWidth: 1,
+    backgroundColor: "black",
     zIndex: 9999,
   },
 });

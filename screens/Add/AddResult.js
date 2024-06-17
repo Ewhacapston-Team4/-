@@ -48,7 +48,7 @@ function AddResult({ route, navigation }) {
 
   useEffect(() => {
     TTS.speak(
-      `피디정 이 밀리그램, 알레락정 오 밀리그램, 가모틴정 오 밀리그램, 삼아리도멕스크림 총 네 가지 약을 타셨네요. 복용 알림을 등록하시려면 하단의 버튼을 눌러주세요!`
+      "김혜자님, 피디정 이미리그램, 알레락정오미리그램, 가스모틴정오미리그램, 삼아리도멕스크림을 처방 받으셨네요. 복용 알림을 등록하시려면 하단의 버튼을 눌러주세요."
     );
   }, [medList]);
 
@@ -311,16 +311,16 @@ function AddResult({ route, navigation }) {
         date: incomingDate,
         meds: incomingMeds,
         imageUrl: incomingUrl,
-        vertices: incomingVertices,
-        imageWidth: incomingWidth,
+        // vertices: incomingVertices,
+        // imageWidth: incomingWidth,
       } = route.params;
       //console.log(incomingDate, incomingMeds);
       setDate(incomingDate);
       setMedList(incomingMeds);
       saveTimeList(medList);
       setImageUrl(incomingUrl);
-      setVertices(incomingVertices);
-      setWidth(incomingWidth);
+      // setVertices(incomingVertices);
+      // setWidth(incomingWidth);
       //console.log(imageUrl);
       temp_morning = timeList.morning;
       temp_lunch = timeList.lunch;
@@ -391,7 +391,11 @@ function AddResult({ route, navigation }) {
         gap={0}
       />
       <TouchableOpacity onPress={handleImagePress}>
-        <Image style={styles.image} source={{ uri: imageUrl }} />
+        {/* <Image style={styles.image} source={{ uri: imageUrl }} /> */}
+        <Image
+          style={styles.image}
+          source={require("../../assets/images/maskedImage.png")}
+        />
         {/* <View style={styles.rectangleA} />
         <View style={styles.rectangleB} /> */}
       </TouchableOpacity>

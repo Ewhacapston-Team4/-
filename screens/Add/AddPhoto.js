@@ -7,10 +7,23 @@ import ImagePicker from "../../components/camera/ImagePicker";
 
 function AddPhoto({ navigation }) {
   const [pickedBagImage, setPickedBagImage] = useState("");
+  const [mode, setMode] = useState("");
 
   function onImagePicked(imageUrl) {
     //console.log(imageUrl);
     setPickedBagImage(imageUrl);
+  }
+  function onModePicked(mode) {
+    setMode(mode);
+  }
+  let title;
+
+  if (!mode) {
+    title = "사진으로 찾기";
+  } else if (mode === "camera") {
+    title = "사진을 촬영해주세요";
+  } else {
+    title = "사진을 골라주세요";
   }
 
   useEffect(() => {
@@ -27,7 +40,11 @@ function AddPhoto({ navigation }) {
     <View style={styles.container}>
       <Title1>사진으로 등록</Title1>
       <View style={styles.gap}></View>
-      <ImagePicker onImagePicked={onImagePicked} navigation={navigation} />
+      <ImagePicker
+        onImagePicked={onImagePicked}
+        navigation={navigation}
+        onModePicked={onModePicked}
+      />
     </View>
   );
 }

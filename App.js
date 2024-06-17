@@ -24,6 +24,7 @@ import LoginScreen from "./screens/LoginScreen";
 import SignupScreen from "./screens/SignupScreen";
 import Schedule from "./screens/Schedule";
 import ImageEdit from "./components/camera/ImageEdit";
+import Instruction from "./screens/Search/Instruction";
 
 //context
 import DailyContextProvider from "./store/context/daily-context";
@@ -135,7 +136,7 @@ function AuthenticatedStack() {
       />
       <BottomTab.Screen
         name="MyPage"
-        component={AddResult}
+        component={Instruction}
         options={{
           tabBarLabel: "마이페이지",
           tabBarIcon: ({ color, size }) => (

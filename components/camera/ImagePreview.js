@@ -2,6 +2,7 @@ import { StyleSheet, View, Button } from "react-native";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import uuid from "react-native-uuid";
+import * as FileSystem from "expo-file-system";
 
 import Colors from "../../constants/Colors";
 import TextAnimator from "../TextAnimator";
@@ -87,7 +88,8 @@ function ImagePreview({ route, navigation }) {
         {
           images: [
             {
-              format: "jpeg", // file format
+              //format: "jpeg", // file format
+              format: "png", // file format
               name: "test.jpeg", // image name
               data: base64, // image base64 string(only need part of data). Example: base64String.split(',')[1]
             },
@@ -133,6 +135,7 @@ function ImagePreview({ route, navigation }) {
             }
             if (item.inferText !== "")
               vertices.push(item.boundingPoly.vertices);
+            //console.log(vertices);
           });
           navigation.navigate(
             "AddResult",
@@ -140,8 +143,8 @@ function ImagePreview({ route, navigation }) {
               date: parsingDate,
               meds: medsList,
               imageUrl: imageUrl,
-              vertices: vertices,
-              imageWidth: imageWidth,
+              // vertices: vertices,
+              // imageWidth: imageWidth,
             },
             navigation
           );
@@ -228,7 +231,6 @@ function ImagePreview({ route, navigation }) {
       ocrAPICall();
     } else if (type === "search") {
       let pill = getPillType();
-      console.log(pill);
       imgAPICall(pill);
     }
   }, [imageUrl]);

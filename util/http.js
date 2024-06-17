@@ -36,8 +36,6 @@ export async function searchProhibited(keyword) {
 }
 
 export async function searchImage(imageUrl, type) {
-  console.log(type);
-
   let apiUrl;
 
   switch (type) {
@@ -68,13 +66,13 @@ export async function searchImage(imageUrl, type) {
     const formData = new FormData();
     formData.append("image", {
       uri: imageUrl,
-      type: "image/png", // MIME 타입 지정
-      name: "upload.png", // 파일명 지정, 서버에서 필요에 따라 사용될 수 있음
+      type: "image/jpg", // MIME 타입 지정
+      name: "upload.jpg", // 파일명 지정, 서버에서 필요에 따라 사용될 수 있음
     });
     //formData.append("image", imageUrl);
 
     const response = await axios.post(
-      `${server}/api/pill/upload/${apiUrl}`,
+      `${server}/api/pill/upload/TRR`,
       formData,
       {
         headers: {

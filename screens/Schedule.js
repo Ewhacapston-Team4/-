@@ -11,7 +11,7 @@ import Daily from "../components/daily/Daily";
 import { DailyContext } from "../store/context/daily-context";
 
 function Schedule() {
-  const [selected, setSelected] = useState("2024-05-20");
+  const [selected, setSelected] = useState("2024-06-07");
   const [modalVisible, setModalVisible] = useState(true);
 
   const dailyContext = useContext(DailyContext);

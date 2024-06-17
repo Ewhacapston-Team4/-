@@ -1,4 +1,12 @@
-import { StyleSheet, View, Modal, Text, Pressable, Image } from "react-native";
+import {
+  StyleSheet,
+  View,
+  Modal,
+  Text,
+  Pressable,
+  Image,
+  TouchableWithoutFeedback,
+} from "react-native";
 import { useState } from "react";
 
 import Colors from "../../constants/Colors";
@@ -15,7 +23,7 @@ function Search({ navigation }) {
   const [seletedIcon, setSeletedIcon] = useState(null);
   const [pressedIcon, setPressedIcon] = useState(null);
 
-  const { setPillType } = usePills();
+  const { setPillType, setPhotoType } = usePills();
 
   const openModal = () => {
     setModalVisible(true);
@@ -32,6 +40,7 @@ function Search({ navigation }) {
   const navigateToScreen = (screenName) => {
     return () => {
       navigation.navigate(screenName);
+      setPhotoType("search");
     };
   };
 
@@ -50,10 +59,10 @@ function Search({ navigation }) {
         sound = "정방형";
         break;
       case "pill4":
-        sound = "오각형, 육각형, 팔각형";
+        sound = "오각형 육각형 팔각형";
         break;
       case "pill5":
-        sound = "삼각형, 사각형, 마름모";
+        sound = "삼각형 사각형 마름모";
         break;
       case "pill6":
         sound = "기타";
@@ -84,157 +93,164 @@ function Search({ navigation }) {
           editable={false}
         ></SearchBox>
       </View>
-      <Modal
-        visible={modalVisible}
-        animationType="slide"
-        transparent={true}
-        onRequestClose={() => setModalVisible(false)}
+      <TouchableWithoutFeedback
+        onPress={() => {
+          setModalVisible(false);
+        }}
       >
-        <View style={styles.modalContainer}>
-          <View style={styles.modalContent}>
-            <Text style={styles.modalTitle}>어떤 형태의 약인가요?</Text>
-            <View style={styles.iconsContainer}>
-              <Pressable
-                style={
-                  seletedIcon === "pill1"
-                    ? styles.seleted
-                    : styles.iconContainer
-                }
-                onPressIn={() => {
-                  handlePress("pill1");
+        <Modal
+          visible={modalVisible}
+          animationType="slide"
+          transparent={true}
+          onRequestClose={() => setModalVisible(false)}
+        >
+          <View style={styles.modalContainer}>
+            <View style={styles.modalContent}>
+              <Text style={styles.modalTitle}>어떤 형태의 약인가요?</Text>
+              <View style={styles.iconsContainer}>
+                <Pressable
+                  style={
+                    seletedIcon === "pill1"
+                      ? styles.seleted
+                      : styles.iconContainer
+                  }
+                  onPressIn={() => {
+                    handlePress("pill1");
+                  }}
+                  onPressOut={handlePressOut}
+                >
+                  {pressedIcon === "pill1" ? (
+                    <Text style={styles.smallText}>원형</Text>
+                  ) : (
+                    <Image
+                      style={styles.image}
+                      source={require(`../../assets/images/pill1.png`)}
+                    />
+                  )}
+                </Pressable>
+                <Pressable
+                  style={
+                    seletedIcon === "pill2"
+                      ? styles.seleted
+                      : styles.iconContainer
+                  }
+                  onPressIn={() => {
+                    handlePress("pill2");
+                  }}
+                  onPressOut={handlePressOut}
+                >
+                  {pressedIcon === "pill2" ? (
+                    <Text style={styles.smallText}>타원형</Text>
+                  ) : (
+                    <Image
+                      style={styles.image}
+                      source={require(`../../assets/images/pill2.png`)}
+                    />
+                  )}
+                </Pressable>
+                <Pressable
+                  style={
+                    seletedIcon === "pill3"
+                      ? styles.seleted
+                      : styles.iconContainer
+                  }
+                  onPressIn={() => {
+                    handlePress("pill3");
+                  }}
+                  onPressOut={handlePressOut}
+                >
+                  {pressedIcon === "pill3" ? (
+                    <Text style={styles.smallText}>정방형</Text>
+                  ) : (
+                    <Image
+                      style={styles.image}
+                      source={require(`../../assets/images/pill3.png`)}
+                    />
+                  )}
+                </Pressable>
+                <Pressable
+                  style={
+                    seletedIcon === "pill4"
+                      ? styles.seleted
+                      : styles.iconContainer
+                  }
+                  onPressIn={() => {
+                    handlePress("pill4");
+                  }}
+                  onPressOut={handlePressOut}
+                >
+                  {pressedIcon === "pill4" ? (
+                    <>
+                      <Text style={styles.smallText}>오각형</Text>
+                      <Text style={styles.smallText}>육각형</Text>
+                      <Text style={styles.smallText}>팔각형</Text>
+                    </>
+                  ) : (
+                    <Image
+                      style={styles.image}
+                      source={require(`../../assets/images/pill4.png`)}
+                    />
+                  )}
+                </Pressable>
+                <Pressable
+                  style={
+                    seletedIcon === "pill5"
+                      ? styles.seleted
+                      : styles.iconContainer
+                  }
+                  onPressIn={() => {
+                    handlePress("pill5");
+                  }}
+                  onPressOut={handlePressOut}
+                >
+                  {pressedIcon === "pill5" ? (
+                    <>
+                      <Text style={styles.smallText}>삼각형</Text>
+                      <Text style={styles.smallText}>사각형</Text>
+                      <Text style={styles.smallText}>마름모</Text>
+                    </>
+                  ) : (
+                    <Image
+                      style={styles.image}
+                      source={require(`../../assets/images/pill5.png`)}
+                    />
+                  )}
+                </Pressable>
+                <Pressable
+                  style={
+                    seletedIcon === "pill6"
+                      ? styles.seleted
+                      : styles.iconContainer
+                  }
+                  onPressIn={() => {
+                    handlePress("pill6");
+                  }}
+                  onPressOut={handlePressOut}
+                >
+                  {pressedIcon === "pill6" ? (
+                    <Text style={styles.smallText}>기타</Text>
+                  ) : (
+                    <Image
+                      style={styles.image}
+                      source={require(`../../assets/images/pill6.png`)}
+                    />
+                  )}
+                </Pressable>
+              </View>
+              <BasicButton
+                style={styles.position}
+                onPress={() => {
+                  setPillType(seletedIcon);
+                  closeModal();
+                  setPhotoType("search");
+                  navigation.navigate("SearchPhoto");
                 }}
-                onPressOut={handlePressOut}
-              >
-                {pressedIcon === "pill1" ? (
-                  <Text style={styles.smallText}>원형</Text>
-                ) : (
-                  <Image
-                    style={styles.image}
-                    source={require(`../../assets/images/pill1.png`)}
-                  />
-                )}
-              </Pressable>
-              <Pressable
-                style={
-                  seletedIcon === "pill2"
-                    ? styles.seleted
-                    : styles.iconContainer
-                }
-                onPressIn={() => {
-                  handlePress("pill2");
-                }}
-                onPressOut={handlePressOut}
-              >
-                {pressedIcon === "pill2" ? (
-                  <Text style={styles.smallText}>타원형</Text>
-                ) : (
-                  <Image
-                    style={styles.image}
-                    source={require(`../../assets/images/pill2.png`)}
-                  />
-                )}
-              </Pressable>
-              <Pressable
-                style={
-                  seletedIcon === "pill3"
-                    ? styles.seleted
-                    : styles.iconContainer
-                }
-                onPressIn={() => {
-                  handlePress("pill3");
-                }}
-                onPressOut={handlePressOut}
-              >
-                {pressedIcon === "pill3" ? (
-                  <Text style={styles.smallText}>정방형</Text>
-                ) : (
-                  <Image
-                    style={styles.image}
-                    source={require(`../../assets/images/pill3.png`)}
-                  />
-                )}
-              </Pressable>
-              <Pressable
-                style={
-                  seletedIcon === "pill4"
-                    ? styles.seleted
-                    : styles.iconContainer
-                }
-                onPressIn={() => {
-                  handlePress("pill4");
-                }}
-                onPressOut={handlePressOut}
-              >
-                {pressedIcon === "pill4" ? (
-                  <>
-                    <Text style={styles.smallText}>오각형</Text>
-                    <Text style={styles.smallText}>육각형</Text>
-                    <Text style={styles.smallText}>팔각형</Text>
-                  </>
-                ) : (
-                  <Image
-                    style={styles.image}
-                    source={require(`../../assets/images/pill4.png`)}
-                  />
-                )}
-              </Pressable>
-              <Pressable
-                style={
-                  seletedIcon === "pill5"
-                    ? styles.seleted
-                    : styles.iconContainer
-                }
-                onPressIn={() => {
-                  handlePress("pill5");
-                }}
-                onPressOut={handlePressOut}
-              >
-                {pressedIcon === "pill5" ? (
-                  <>
-                    <Text style={styles.smallText}>삼각형</Text>
-                    <Text style={styles.smallText}>사각형</Text>
-                    <Text style={styles.smallText}>마름모</Text>
-                  </>
-                ) : (
-                  <Image
-                    style={styles.image}
-                    source={require(`../../assets/images/pill5.png`)}
-                  />
-                )}
-              </Pressable>
-              <Pressable
-                style={
-                  seletedIcon === "pill6"
-                    ? styles.seleted
-                    : styles.iconContainer
-                }
-                onPressIn={() => {
-                  handlePress("pill6");
-                }}
-                onPressOut={handlePressOut}
-              >
-                {pressedIcon === "pill6" ? (
-                  <Text style={styles.smallText}>기타</Text>
-                ) : (
-                  <Image
-                    style={styles.image}
-                    source={require(`../../assets/images/pill6.png`)}
-                  />
-                )}
-              </Pressable>
+                title={"선택"}
+              ></BasicButton>
             </View>
-            <BasicButton
-              style={styles.position}
-              onPress={() => {
-                setPillType(seletedIcon);
-                closeModal();
-                navigation.navigate("SearchPhoto");
-              }}
-              title={"선택"}
-            ></BasicButton>
           </View>
-        </View>
-      </Modal>
+        </Modal>
+      </TouchableWithoutFeedback>
     </View>
   );
 }
