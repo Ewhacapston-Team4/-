@@ -1,5 +1,5 @@
 import { View, StyleSheet, Text } from "react-native";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { Ionicons } from "@expo/vector-icons";
 
 import Colors from "../../constants/Colors";
@@ -47,6 +47,10 @@ function Goals({ time }) {
   } else {
     icon = <Ionicons name="ellipse" color={Colors.grey1} size={40} />;
   }
+
+  useEffect(() => {
+    console.log(allChecked);
+  }, [allChecked]);
 
   return (
     <View style={styles.container}>

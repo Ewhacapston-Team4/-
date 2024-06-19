@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const server = "http://116.32.121.121:80";
+const server = "http://10.240.174.35:3000";
 
 export async function searchInfos(keyword) {
   try {
@@ -37,6 +37,7 @@ export async function searchProhibited(keyword) {
 
 export async function searchImage(imageUrl, type) {
   let apiUrl;
+  console.log(type);
 
   switch (type) {
     case "pill1":
@@ -72,7 +73,7 @@ export async function searchImage(imageUrl, type) {
     //formData.append("image", imageUrl);
 
     const response = await axios.post(
-      `${server}/api/pill/upload/TRR`,
+      `${server}/api/pill/upload/${apiUrl}`,
       formData,
       {
         headers: {
