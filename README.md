@@ -4,6 +4,10 @@
 
 ### 2. 시스템 요구사항 ###
 * __Client__
+    * Node.js v12 이상
+    * npm
+    * expo 패키지
+    * 모바일 디바이스 혹은 emulator (SDK **50**으로 다운그레이드 된 expo go 설치 필요) 
 * __Server__
     * Node.js v12 이상
     * npm 또는 yarn 패키지 매니저 (npm 사용 권장)
@@ -11,6 +15,12 @@
       
 ### 3. 설치 및 실행 ###
 * __Client__
+    - 소스 코드 다운 받기 전
+      1. node.js 설치
+      2. expo-cli 설치 - 터미널에 npm install -g expo-cli
+    - 소스 코드 다운 받은 후
+      1. 다운 받은 폴더 위치에서 npm start
+      2. 모바일 디바이스 / emulator에서 실행
 * __Server__
     1. [Node.js](<https://nodejs.org/>)를 설치합니다.
     2. 레포지토리를 클론합니다:
