@@ -16,7 +16,7 @@
 ### 3. 설치 및 실행 ###
 * __Client__
     - 소스 코드 다운 받기 전
-      1. node.js 설치
+      1. Node.js 설치
       2. expo-cli 설치
       ```npm install -g expo-cli```
     - 소스 코드 다운 받은 후
