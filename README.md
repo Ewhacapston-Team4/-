@@ -17,10 +17,12 @@
 * __Client__
     - 소스 코드 다운 받기 전
       1. node.js 설치
-      2. expo-cli 설치 - 터미널에 npm install -g expo-cli
+      2. expo-cli 설치
+      ```npm install -g expo-cli```
     - 소스 코드 다운 받은 후
-      1. 다운 받은 폴더 위치에서 npm start
-      2. 모바일 디바이스 / emulator에서 실행
+      1. 다운 받은 폴더 위치에서
+      ```npm start```
+      3. 모바일 디바이스 / emulator에서 실행
 * __Server__
     1. [Node.js](<https://nodejs.org/>)를 설치합니다.
     2. 레포지토리를 클론합니다:
