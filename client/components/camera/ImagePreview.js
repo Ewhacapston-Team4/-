@@ -100,7 +100,7 @@ function ImagePreview({ route, navigation }) {
         },
         {
           headers: {
-            "X-OCR-SECRET": "ZEFJUGRKTGNBVm1GYWdTVXFaa3RaeWNhWFBDeG9ITmU=", // Secret Key
+            "X-OCR-SECRET": "", // Secret Key
           },
         }
       )
