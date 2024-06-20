@@ -60,7 +60,11 @@ function PillList() {
 
   return (
     <View style={styles.rootContainer}>
-      <Box title="드시고 계신 약" type={"home"}>
+      <Box
+        title="   드시고 계신 약"
+        type={"home"}
+        style={{ paddingHorizontal: 10 }}
+      >
         <View style={styles.itemContainer}>
           {pills.map((item) => (
             <PillItem
