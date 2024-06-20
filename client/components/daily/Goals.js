@@ -1,5 +1,5 @@
 import { View, StyleSheet, Text } from "react-native";
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Ionicons } from "@expo/vector-icons";
 
 import Colors from "../../constants/Colors";
@@ -17,7 +17,7 @@ function Goals({ time, date }) {
   let pillsToDisplay;
   if (time === "아침") {
     pillsToDisplay = pills.filter((pill) => pill.morning);
-    console.log("m", pillsToDisplay);
+    //console.log("m", pillsToDisplay);
   } else if (time === "점심") {
     pillsToDisplay = pills.filter((pill) => pill.lunch);
     //console.log("l", pillsToDisplay);
@@ -26,17 +26,14 @@ function Goals({ time, date }) {
     //console.log("d", pillsToDisplay);
   }
 
-  let allChecked;
+  const meds = checkedMedsCtx.datas[date].meds;
 
-  useEffect(() => {
-    allChecked = pillsToDisplay.every((pill) => {
-      checkedMedsCtx.checkMedsValue(
-        date,
-        `0${time === "아침" ? "1" : time === "점심" ? "2" : "3"}${pill.id}`
-      );
-    });
-    console.log("allChecked", time, date, allChecked);
-  }, [checkedMedsCtx.datas[date].meds]);
+  const allChecked = pillsToDisplay.every((pill) =>
+    checkedMedsCtx.checkMedsValue(
+      date,
+      `0${time === "아침" ? "1" : time === "점심" ? "2" : "3"}${pill.id}`
+    )
+  );
 
   const content = (
     <View>
@@ -45,31 +42,39 @@ function Goals({ time, date }) {
           key={index}
           medId={`0${time === "아침" ? "1" : time === "점심" ? "2" : "3"}${pill.id}`}
           content={pill.summary}
-          checked={checkedMedsCtx.checkValue(date, time)}
+          checked={checkedMedsCtx.checkValue(
+            date,
+            time,
+            `0${time === "아침" ? "1" : time === "점심" ? "2" : "3"}${pill.id}`
+          )}
           date={date}
         />
       ))}
     </View>
   );
 
-  useEffect(() => {
-    //console.log("before", allChecked, checkedMedsCtx.checkValue(date, time));
-    if (allChecked || checkedMedsCtx.checkValue(date, time)) {
-      checkedMedsCtx.toggleTime(date, time, true);
-    } else {
-      checkedMedsCtx.toggleTime(date, time, false);
-    }
-    //console.log("after", allChecked, checkedMedsCtx.checkValue(date, time));
-  }, [allChecked, checkedMedsCtx.checkValue(date, time)]);
   let icon;
-
-  if (allChecked || checkedMedsCtx.checkValue(date, time)) {
+  if (allChecked) {
     icon = <Ionicons name="checkmark-circle" color={Colors.point} size={40} />;
     //checkedMedsCtx.toggleTime(date, time, true);
   } else {
     icon = <Ionicons name="ellipse" color={Colors.grey1} size={40} />;
     //checkedMedsCtx.toggleTime(date, time, false);
   }
+
+  useEffect(() => {
+    if (allChecked) {
+      icon = (
+        <Ionicons name="checkmark-circle" color={Colors.point} size={40} />
+      );
+      //checkedMedsCtx.toggleTime(date, time, true);
+    } else {
+      icon = <Ionicons name="ellipse" color={Colors.grey1} size={40} />;
+      //checkedMedsCtx.toggleTime(date, time, false);
+    }
+  }, [allChecked]);
+  // let icon;
+
   return (
     <View style={styles.container}>
       <View style={styles.labelContainer}>
