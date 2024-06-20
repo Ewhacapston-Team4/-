@@ -305,9 +305,9 @@ function DailyContextProvider({ children }) {
     );
   }
 
-  function checkValue(date, time) {
+  function checkValue(date, time, medId) {
     if (dailyData[date]) {
-      return dailyData[date][time];
+      return dailyData[date].meds.includes(medId);
     } else {
       return false; // 기본적으로 false를 반환하거나, 상황에 맞게 처리하세요.
     }
@@ -316,8 +316,12 @@ function DailyContextProvider({ children }) {
   function checkMedsValue(date, medId) {
     //console.log(date);
     //console.log(dailyMedsData[date]);
-    //console.log(dailyData[date].meds);
-    console.log("666", dailyData[date].meds.includes(medId));
+    console.log(dailyData[date].meds);
+    console.log(
+      "check Meds Value:",
+      medId,
+      dailyData[date].meds.includes(medId)
+    );
     return dailyData[date].meds.includes(medId);
   }
 
