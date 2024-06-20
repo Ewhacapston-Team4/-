@@ -4,33 +4,33 @@ import Box from "../../ui/Box";
 import Goals from "./Goals";
 import Colors from "../../constants/Colors";
 
-function Daily({ type, title }) {
+function Daily({ type, date }) {
   let newTitle = "";
   if (type === "home") {
     newTitle = "오늘 드실 약";
   } else if (type === "schedule") {
-    newTitle = title;
+    newTitle = date;
   }
   return (
     <View style={styles.container}>
       {type === "home" ? (
         <Box title={newTitle} type={type}>
           <View style={styles.goalsContainer}>
-            <Goals time={"아침"} />
+            <Goals time={"아침"} date={date} />
             <View style={styles.divider} />
-            <Goals time={"점심"} />
+            <Goals time={"점심"} date={date} />
             <View style={styles.divider} />
-            <Goals time={"저녁"} />
+            <Goals time={"저녁"} date={date} />
           </View>
         </Box>
       ) : (
         <Box title={newTitle} type={type}>
           <View style={styles.goalsContainer}>
-            <Goals time={"아침"} />
+            <Goals time={"아침"} date={date} />
             <View style={styles.divider_gap} />
-            <Goals time={"점심"} />
+            <Goals time={"점심"} date={date} />
             <View style={styles.divider_gap} />
-            <Goals time={"저녁"} />
+            <Goals time={"저녁"} date={date} />
           </View>
         </Box>
       )}

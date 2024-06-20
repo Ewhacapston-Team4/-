@@ -20,6 +20,7 @@ import { useState, useEffect } from "react";
 import { usePills } from "../../store/context/pills-context";
 
 import BasicButton from "../../ui/BasicButton";
+import { searchImage } from "../../util/http";
 
 function ImagePicker({ onImagePicked }) {
   const [pickedImage, setPickedImage] = useState();
@@ -111,7 +112,11 @@ function ImagePicker({ onImagePicked }) {
             >
               <View style={{ alignItems: "center" }}>
                 <Image
-                  style={{ width: "100%", height: 280 }}
+                  style={
+                    photoType === "search"
+                      ? styles.searchImage
+                      : styles.addImage
+                  }
                   source={{ uri: pickedImage }}
                   onError={(error) => console.log("이미지 로드 오류: ", error)}
                 />
@@ -121,7 +126,10 @@ function ImagePicker({ onImagePicked }) {
                 style={{ marginTop: 30 }}
                 title="선택 완료"
               />
-              <BasicButton title="다시 선택" />
+              <BasicButton
+                title="다시 선택"
+                onPress={() => setModalVisible(false)}
+              />
             </View>
           </View>
         </TouchableWithoutFeedback>
@@ -133,7 +141,8 @@ function ImagePicker({ onImagePicked }) {
 export default ImagePicker;
 
 const styles = StyleSheet.create({
-  image: { width: "100%", height: 180, alignContent: "center" },
+  searchImage: { width: "100%", height: 180, alignContent: "center" },
+  addImage: { width: "100%", height: 280, alignContent: "center" },
   modalContainer: {
     flex: 1,
     justifyContent: "flex-end", // 화면 하단 정렬

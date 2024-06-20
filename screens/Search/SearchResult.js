@@ -151,7 +151,7 @@ const styles = StyleSheet.create({
   result: {
     fontFamily: "noto-sans-medium",
     fontSize: 25,
-    marginVertical: -10,
+    marginVertical: 5,
   },
   Box: {
     paddingHorizontal: 15,
@@ -197,7 +197,7 @@ const styles = StyleSheet.create({
     fontFamily: "noto-sans-medium",
     fontSize: 25,
     paddingLeft: 20,
-    marginVertical: -15,
+    marginVertical: 5,
     textAlign: "left",
   },
   iconContainer: {

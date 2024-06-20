@@ -53,7 +53,7 @@ function Home() {
           />
         </View>
       </View>
-      <Daily type={"home"} title={"오늘 드실 약"} />
+      <Daily type={"home"} date={"2024-06-21"} />
       <PillList />
     </ScrollView>
   );

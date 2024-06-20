@@ -4,27 +4,24 @@
     "slug": "chemikim",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
+    "icon": "./assets/adaptive-icon.png",
     "userInterfaceStyle": "light",
     "splash": {
-      "image": "./assets/splash.png",
+      "image": "./assets/adaptive-icon.png",
       "resizeMode": "contain",
-      "backgroundColor": "#FDF9F2"
+      "backgroundColor": "#4ECDC4"
     },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
+    "assetBundlePatterns": ["**/*"],
     "ios": {
       "supportsTablet": true
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
-        "backgroundColor": "#ffffff"
+        "backgroundColor": "#4ECDC4"
       },
-      "permissions": [
-        "android.permission.RECORD_AUDIO"
-      ]
+      "permissions": ["android.permission.RECORD_AUDIO"],
+      "package": "com.shimthr04.kimyaksa"
     },
     "web": {
       "favicon": "./assets/favicon.png"
@@ -37,9 +34,7 @@
           "cameraPermission": "사진 찍어도 괜찮을까요?"
         }
       ],
-      [
-        "expo-font"
-      ],
+      ["expo-font"],
       [
         "expo-notifications",
         {

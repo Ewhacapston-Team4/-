@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const server = "http://10.240.174.35:3000";
+const server = "http://116.32.121.121:80";
 
 export async function searchInfos(keyword) {
   try {

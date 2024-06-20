@@ -83,13 +83,13 @@ function Schedule() {
       const dots = [];
       const medicationInfo = dailyContext.datas[date];
 
-      if (medicationInfo.morning) {
+      if (medicationInfo.아침) {
         dots.push({ key: "morning", color: "#95ded9" });
       }
-      if (medicationInfo.afternoon) {
+      if (medicationInfo.점심) {
         dots.push({ key: "afternoon", color: "#3ac7bd" });
       }
-      if (medicationInfo.evening) {
+      if (medicationInfo.저녁) {
         dots.push({ key: "evening", color: "#1db5aa" });
       }
       if (dots.length > 0) {
@@ -155,7 +155,7 @@ function Schedule() {
           }
         />
         <View style={styles.dailyContainer}>
-          <Daily type={"schedule"} title={selected} />
+          <Daily type={"schedule"} date={selected} />
         </View>
       </ScrollView>
     </View>

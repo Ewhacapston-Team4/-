@@ -89,7 +89,7 @@ function ImagePreview({ route, navigation }) {
           images: [
             {
               //format: "jpeg", // file format
-              format: "png", // file format
+              format: "jpeg", // file format
               name: "test.jpeg", // image name
               data: base64, // image base64 string(only need part of data). Example: base64String.split(',')[1]
             },
@@ -100,20 +100,22 @@ function ImagePreview({ route, navigation }) {
         },
         {
           headers: {
-            "X-OCR-SECRET": "ZEFJUGRKTGNBVm1GYWdTVXFaa3RaeWNhWFBDeG9ITmU=", // Secret Key
+            "X-OCR-SECRET": "", // Secret Key
           },
         }
       )
       .then((res) => {
+        console.log("1");
         if (res.status === 200) {
+          console.log(2);
           let result = res.data.images[0];
           const imageWidth = result.convertedImageInfo.width;
-          console.log(imageWidth);
           result.fields.forEach((item) => {
+            console.log(item.name);
             if (item.name === "date") {
               const pattern = /^\D+(.+)/;
               const text = item.inferText;
-              console.log(text);
+              console.log(3);
               if (pattern.test(text)) {
                 const match = text.match(pattern);
                 parsingDate = match[1];
